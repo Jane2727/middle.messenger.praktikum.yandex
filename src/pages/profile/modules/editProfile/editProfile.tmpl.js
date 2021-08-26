@@ -6,10 +6,10 @@ export default
             {{/each}}
         </div>
         <div class="edit-profile__buttons-panel">
-            <a class="edit-profile__save-link" href="./viewProfile">
+            <a class="edit-profile__save-link" href="/viewProfile">
                 {{{save}}}
             </a> 
-            <a class="editProfile__back-link" href="./viewProfile">
+            <a class="editProfile__back-link" href="/viewProfile">
                 {{{back}}}
             </a> 
         </div>

@@ -6,10 +6,10 @@ export default
         {{/each}}
         </div>
         <div class="registration__buttons-panel">
-            <a href="./notSelectedChat">
+            <a href="/notSelectedChat">
                 {{{button}}}
             </a>
-            <a class="registration__login-link" href="./notSelectedChat">
+            <a class="registration__login-link" href="/notSelectedChat">
                 <span class="registration__login-link-title">{{linkTitle}}</span>
             </a>
         </div>
