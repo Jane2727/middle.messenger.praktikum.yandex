@@ -1,0 +1,31 @@
+.input-profile__container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0;
+    border: 1px solid transparent;
+    border-bottom-color: var(--dark-gray-color);
+    min-width: 400px;
+    padding: 10px 0;
+}
+
+.input-profile__label {
+    color: var(--black-text-color);
+    min-width: 165px;
+}
+
+.input-profile__input {
+    width: 100%;
+    outline: transparent;
+    color: var(--gray-text-color);
+    border: none;
+    text-align: right;
+    background: transparent;
+}
+
+.input-profile__error-message {
+    color: var(--warning-color);
+    font-size: 8px;
+    line-height: 8px;
+    margin-top: 8px;
+}

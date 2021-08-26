@@ -1,0 +1,10 @@
+@mixin hovered-button {
+    opacity: 1;
+    cursor: pointer;
+}
+
+@mixin flex-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}

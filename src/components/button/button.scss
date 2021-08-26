@@ -1,0 +1,21 @@
+@import "./../../mixins.scss";
+
+.button {
+    width: 280px;
+    height: 37px;
+    background: var(--blue-color);
+    border-color: var(--blue-color);
+    border-radius: 8px;
+    opacity: 0.8;
+
+    &:hover {
+        @include hovered-button;
+    }
+}
+
+.button__title {
+    font-size: 13px;
+    line-height: 13px;
+    text-align: center;
+    color: var(--white-color);
+}

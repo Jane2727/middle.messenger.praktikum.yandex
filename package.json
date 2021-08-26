@@ -1,0 +1,31 @@
+{
+  "name": "middle.messenger.praktikum.yandex",
+  "version": "1.0.0",
+  "description": "-",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel index.html --port 3000 --no-cache --open && node server.js",
+    "build": "parcel build index.html",
+    "start": "parcel index.html --port 3000 --open",
+    "server": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jane2727/middle.messenger.praktikum.yandex.git"
+  },
+  "author": "Evgeniya Zhavoronkova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jane2727/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/Jane2727/middle.messenger.praktikum.yandex#readme",
+  "devDependencies": {
+    "express": "^4.17.1",
+    "handlebars": "^4.7.7",
+    "parcel": "1.12.3",
+    "sass": "^1.35.1"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
