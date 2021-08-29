@@ -1,0 +1,13 @@
+.current-chat-area__empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.current-chat-area__title {
+    font-size: 12px;
+    line-height: 12px;
+    text-align: center;
+    color: var(--gray-text-color);
+}

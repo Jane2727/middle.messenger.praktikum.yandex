@@ -1,0 +1,67 @@
+.current-chat-area__selected {
+    display: flex;
+    width: calc( 100% - 310px);
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.current-chat__header {
+    height: 70px;
+    display: flex;
+    border-bottom: 1px solid var(--dark-gray-color);
+    width: 100%;
+    align-items: center;
+}
+
+.current-chat__header-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 68px;
+    height: 72px;
+}
+
+.current-chat__header-icon{
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+}
+
+.current-chat-name {
+    font-weight: bold;
+    padding: 10px;
+    flex-grow: 1;
+}
+
+.chat-settings {
+    padding: 10px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.current-chat__footer {
+    display: flex;
+    height: 54px;
+    border-top: 1px solid var(--dark-gray-color);
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.add-file-button {
+    padding: 10px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.send-button {
+    padding: 10px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}

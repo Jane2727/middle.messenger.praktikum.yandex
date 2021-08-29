@@ -1,0 +1,36 @@
+.registration {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 460px;
+}
+
+.registration__form {
+    display: flex;
+    flex-direction: column;
+}
+
+.registration__buttons-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.registration__login-link {
+    height: 11px;
+    text-align: center;
+    opacity: 0.8;
+    margin-top: 14px;
+    
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.registration__login-link-title {
+    color: var(--blue-color);
+    font-size: 11px;
+    line-height: 11px;
+}
