@@ -8,6 +8,5 @@ jspm_packages/
 atlassian-ide-plugin.xml
 .eslintcache
 node_modules/
-*.lock
 dist
 .cache

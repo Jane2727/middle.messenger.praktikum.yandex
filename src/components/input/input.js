@@ -6,7 +6,14 @@ import "./input.scss";
 import "./inputProfile.scss";
 
 export function Input(params) {
-    const { isProfileInput, required, value, disabled, inputContainerClassName, inputClassName } = params;
+    const { 
+        isProfileInput, 
+        required = false, 
+        value = null, 
+        disabled = false, 
+        inputContainerClassName, 
+        inputClassName 
+    } = params;
 
     const template = Handlebars.compile(isProfileInput ? inputProfileTemplate : inputTemplate);
 
@@ -15,9 +22,9 @@ export function Input(params) {
 
     const context = { 
         ...params, 
-        required: required || false, 
-        value: value || null, 
-        disabledInput: disabled || null,
+        required, 
+        value, 
+        disabledInput: disabled,
         inputContainerClassName: `${baseContainerClassName} ${isClassDefined(inputContainerClassName)}`,
         inputClassName: `${baseInputClassName} ${isClassDefined(inputClassName)}`,
     };

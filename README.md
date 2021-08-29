@@ -13,3 +13,8 @@
 ## Приложение на Netlify
 
 https://relaxed-easley-6a295e.netlify.app
+
+## PR
+
+https://github.com/Jane2727/middle.messenger.praktikum.yandex/pull/1
+
