@@ -1,5 +1,5 @@
 import * as Handlebars from "handlebars";
-import notSelectedTemplate from "./notSelectedChat.tmpl.js";
+import notSelectedTemplate from "./notSelectedChat.tmpl";
 import "./notSelectedChat.scss";
 
 export function notSelectedChat() {

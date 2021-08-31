@@ -1,6 +1,6 @@
 import * as Handlebars from "handlebars";
-import selectedTemplate from "./chatSelected.tmpl.js";
-import { Input } from "./../../../../components/input/input.js";
+import selectedTemplate from "./chatSelected.tmpl";
+import { Input } from "../../../../components/input/input";
 import sendIcon from "./../../../../../static/assets/arrow-send.svg";
 import chatSettingsIcon from "./../../../../../static/assets/chat-settings.svg";
 import addFileIcon from "./../../../../../static/assets/add-file.svg";

@@ -1,9 +1,9 @@
 import * as Handlebars from "handlebars";
 import errorPageTemplate from "./error.tmpl";
-import { routes } from "./../../utils";
+import { routes } from "../../utils";
 import "./error.scss";
 
-export function errorPage(route) {
+export function errorPage(route: string) {
     const template = Handlebars.compile(errorPageTemplate);
     const isNotFoundPageError = route == routes.notFound;
     

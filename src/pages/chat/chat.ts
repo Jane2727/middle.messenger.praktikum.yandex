@@ -7,7 +7,7 @@ import { Input } from "../../components/input";
 import avatarIcon from "../../../static/assets/avatar-icon.svg";
 import "./chat.scss";
 
-export function chatPage(route) {
+export function chatPage(route: string) {
     const template = Handlebars.compile(chatPageTemplate);
     const currentChatArea = route == routes.chatSelected ? chatSelected : notSelectedChat;
 

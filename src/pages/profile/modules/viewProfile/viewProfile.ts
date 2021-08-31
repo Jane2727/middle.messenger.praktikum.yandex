@@ -1,62 +1,70 @@
 import * as Handlebars from "handlebars";
-import registrationTemplate from "./registration.tmpl.js";
+import viewProfileTemplate from "./viewProfile.tmpl";
 import { Input } from "../../../../components/input";
-import { Button } from "../../../../components/button";
-import "./registration.scss";
+import "./viewProfile.scss";
 
-export function registration() {
-    const template = Handlebars.compile(registrationTemplate);
+export function viewProfile() {
+    const template = Handlebars.compile(viewProfileTemplate);
 
     const context = {
         inputs: [
             Input({
+                value: "pochta@yandex.ru",
                 name: "mail",
                 label: "Почта",
                 type: "text",
                 required: true,
+                disabled: true,
+                isProfileInput: true,
             }),
             Input({
+                value: "john",
                 name: "login",
                 label: "Логин",
                 type: "text",
                 required: true,
+                disabled: true,
+                isProfileInput: true,
             }),
             Input({
+                value: "john",
                 name: "name",
                 label: "Имя",
                 type: "text",
                 required: false,
+                disabled: true,
+                isProfileInput: true,
             }),
             Input({
+                value: "doe",
                 name: "lastName",
                 label: "Фамилия",
                 type: "text",
                 required: false,
+                disabled: true,
+                isProfileInput: true,
             }),
             Input({
+                value: "7777777",
                 name: "phone",
                 label: "Телефон",
                 type: "text",
                 required: false,
+                disabled: true,
+                isProfileInput: true,
             }),
             Input({
-                name: "password",
-                label: "Пароль",
-                type: "password",
-                required: true
-            }),
-            Input({
-                name: "secondPassword",
-                label: "Пароль (ещё раз)",
-                type: "password",
-                required: true,
-                errorMessage: "Неверный пароль"
+                value: "john",
+                name: "nickname",
+                label: "Имя в чате",
+                type: "text",
+                disabled: true,
+                isProfileInput: true,
             })
         ],
-        button: Button({
-            title: "Зарегистрироваться"
-        }),
-        linkTitle: "Войти"
+        changeData: "Изменить данные",
+        changePassword: "Изменить пароль",
+        back: "Выйти"
     };
 
     return template(context);

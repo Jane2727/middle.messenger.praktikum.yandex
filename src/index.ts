@@ -11,7 +11,6 @@ const root = document.getElementById("root");
 const content = {
     login: homePage(routes.login),
     registration: homePage(routes.registration),
-    profile: profilePage(routes.profile),
     notSelectedChat: chatPage(routes.notSelectedChat),
     chatSelected: chatPage(routes.chatSelected),
     viewProfile: profilePage(routes.viewProfile),
@@ -28,9 +27,6 @@ switch (window.location.pathname) {
         break;
     case `/${routes.registration}`:
         root.innerHTML = content.registration;
-        break;
-    case `/${routes.profile}`:
-        root.innerHTML = content.profile;
         break;
     case `/${routes.notSelectedChat}`:
         root.innerHTML = content.notSelectedChat;

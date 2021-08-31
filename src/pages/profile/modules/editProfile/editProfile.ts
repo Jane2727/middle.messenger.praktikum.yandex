@@ -1,11 +1,11 @@
 import * as Handlebars from "handlebars";
-import editProfileTemplate from "./editProfile.tmpl.js";
+import editProfileTemplate from "./editProfile.tmpl";
 import { Input } from "../../../../components/input";
 import { Button } from "../../../../components/button";
 import { routes } from "../../../../utils/constants";
 import "./editProfile.scss";
 
-export function editProfile(route) {
+export function editProfile(route: string) {
     const template = Handlebars.compile(editProfileTemplate);
 
     const isEditPassword = route == routes.editProfilePassword;

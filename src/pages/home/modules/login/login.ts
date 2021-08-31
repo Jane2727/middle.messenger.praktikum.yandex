@@ -1,5 +1,5 @@
 import * as Handlebars from "handlebars";
-import loginTemplate from "./login.tmpl.js";
+import loginTemplate from "./login.tmpl";
 import { Input } from "../../../../components/input";
 import { Button } from "../../../../components/button";
 import "./login.scss";
