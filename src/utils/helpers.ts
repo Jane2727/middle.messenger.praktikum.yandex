@@ -1,3 +1,3 @@
-export const isClassDefined = (className: string) => {
+export const isClassDefined = (className: string | undefined) => {
     return (className && (className !== undefined)) ? className : "";
 }

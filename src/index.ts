@@ -6,7 +6,7 @@ import { routes } from "./utils";
 import "./common.scss";
 import "./utils/helpers";
 
-const root = document.getElementById("root");
+const root: HTMLElement | null = document.getElementById("root");
 
 const content = {
     login: homePage(routes.login),
@@ -20,34 +20,36 @@ const content = {
     notFound: errorPage(routes.notFound)
 }
 
-switch (window.location.pathname) {
-    case "/":
-    case `/${routes.login}`:
-        root.innerHTML = content.login;
-        break;
-    case `/${routes.registration}`:
-        root.innerHTML = content.registration;
-        break;
-    case `/${routes.notSelectedChat}`:
-        root.innerHTML = content.notSelectedChat;
-        break;
-    case `/${routes.chatSelected}`:
-        root.innerHTML = content.chatSelected;
-        break;
-    case `/${routes.viewProfile}`:
-        root.innerHTML = content.viewProfile;
-        break;
-    case `/${routes.editProfileData}`:
-        root.innerHTML = content.editProfileData;
-        break;
-    case `/${routes.editProfilePassword}`:
-        root.innerHTML = content.editProfilePassword;
-        break;
-    case `/${routes.internalServerError}`:
-        root.innerHTML = content.internalServerError;
-        break;
-    case `/${routes.notFound}`:
-    default:
-        root.innerHTML = content.notFound;
-        break;
+if (root) {
+    switch (window.location.pathname) {
+        case "/":
+        case `/${routes.login}`:
+            root.innerHTML = content.login;
+            break;
+        case `/${routes.registration}`:
+            root.innerHTML = content.registration;
+            break;
+        case `/${routes.notSelectedChat}`:
+            root.innerHTML = content.notSelectedChat;
+            break;
+        case `/${routes.chatSelected}`:
+            root.innerHTML = content.chatSelected;
+            break;
+        case `/${routes.viewProfile}`:
+            root.innerHTML = content.viewProfile;
+            break;
+        case `/${routes.editProfileData}`:
+            root.innerHTML = content.editProfileData;
+            break;
+        case `/${routes.editProfilePassword}`:
+            root.innerHTML = content.editProfilePassword;
+            break;
+        case `/${routes.internalServerError}`:
+            root.innerHTML = content.internalServerError;
+            break;
+        case `/${routes.notFound}`:
+        default:
+            root.innerHTML = content.notFound;
+            break;
+    }   
 }

@@ -4,7 +4,10 @@
       "noImplicitAny": true,
       "removeComments": true,
       "preserveConstEnums": true,
-      "sourceMap": true
+      "sourceMap": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "strictNullChecks": true
     },
     "include": ["src", "custom.d.ts"],
     "files": ["custom.d.ts"],
