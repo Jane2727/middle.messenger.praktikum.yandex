@@ -1,5 +1,5 @@
 export default
-    `<div class="registration">
+`<div class="registration">
         <div class="registration__form">
         {{#each inputs}}
             {{{this}}}

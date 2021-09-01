@@ -1,5 +1,5 @@
 export default
-    `<div class="login">
+`<div class="login">
         <div class="login__form">
             {{{loginInput}}}
             {{{passwordInput}}}

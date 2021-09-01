@@ -1,5 +1,5 @@
 export default
-    `<div class="chat-page">
+`<div class="chat-page">
         <div class="chat-page__container">
             <div class="chat-list-area">
                 <div class="profile">

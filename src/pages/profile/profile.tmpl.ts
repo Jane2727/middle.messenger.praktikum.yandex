@@ -1,5 +1,5 @@
 export default
-    `<div class="profile-page">
+`<div class="profile-page">
         <div class="profile-page__container">
             <div class="profile-page__header">
                 <div class="profile-page__image">

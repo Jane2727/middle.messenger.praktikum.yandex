@@ -1,5 +1,5 @@
 export default
-    `<div class="edit-profile">
+`<div class="edit-profile">
         <div class="edit-profile__form">
             {{#each inputs}}
                 {{{this}}}

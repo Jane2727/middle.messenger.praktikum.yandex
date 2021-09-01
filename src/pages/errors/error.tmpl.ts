@@ -1,5 +1,5 @@
 export default
-    `<div class="error-page">
+`<div class="error-page">
         <div class="error-page__code">
             <span>{{code}}</span>
         </div>

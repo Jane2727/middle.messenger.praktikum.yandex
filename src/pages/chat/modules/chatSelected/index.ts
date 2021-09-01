@@ -1,1 +1,1 @@
-export { chatSelected } from "./chatSelected";
+export { chatSelected } from './chatSelected';

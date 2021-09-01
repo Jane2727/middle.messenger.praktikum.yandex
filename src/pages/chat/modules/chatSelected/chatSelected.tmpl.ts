@@ -1,5 +1,5 @@
 export default
-    `<div class="current-chat-area__selected">
+`<div class="current-chat-area__selected">
         <div class="current-chat__header">
             <div class="current-chat__header-image">
                 <img src="{{avatarIcon}}" class="current-chat__header-icon">
