@@ -1,5 +1,5 @@
 {
-    "compilerOptions": {
+  "compilerOptions": {
       "outDir": "dist",
       "target": "es2016",
       "declaration": false,
@@ -13,7 +13,7 @@
       "strictNullChecks": true,
       "moduleResolution": "node",
       "allowSyntheticDefaultImports": true
-    },
-    "include": ["src", "custom.d.ts"],
-    "files": ["custom.d.ts"],
-  }
+  },
+  "include": ["src", "custom.d.ts"],
+  "files": ["custom.d.ts"]
+}
