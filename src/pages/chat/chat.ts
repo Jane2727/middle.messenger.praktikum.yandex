@@ -11,17 +11,19 @@ export function chatPage(route: string) {
   const template = Handlebars.compile(chatPageTemplate);
   const currentChatArea = route === routes.chatSelected ? chatSelected : notSelectedChat;
 
+  const searchInput = new Input({
+    label: 'Поиск',
+    inputClassName: 'input__search',
+    name: 'search',
+    type: 'text',
+    inputContainerClassName: 'input__container-gray',
+  });
+
   const context = {
     currentChatArea,
     profileTitle: 'Профиль',
     emptyChatTitle: 'Выберите чат чтобы отправить сообщение',
-    searchInput: Input({
-      label: 'Поиск',
-      inputClassName: 'input__search',
-      name: 'search',
-      type: 'text',
-      inputContainerClassName: 'input__container-gray',
-    }),
+    searchInput: searchInput.transformToString(),
     contacts: [
       {
         name: 'Ann', message: 'Hi! I lost my ...', id: '1952', avatarIcon,

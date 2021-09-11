@@ -1,20 +1,22 @@
-import * as Handlebars from 'handlebars';
 import buttonTemplate from './button.tmpl';
 import { isClassDefined } from '../../utils';
 import './button.scss';
+import { Block } from '../../utils/block';
 
-const template = Handlebars.compile(buttonTemplate);
-
-export interface IButton {
+export type TButton = {
     title: string;
     buttonClassName?: string;
 }
 
-export function Button({ title, buttonClassName }: IButton) {
-  const context = {
-    title,
-    buttonClassName: `button ${isClassDefined(buttonClassName)}`,
-  };
-
-  return template(context);
+export class Button extends Block {
+  constructor(context: TButton, events = {}) {
+    super('div', {
+      context: {
+        ...context,
+        buttonClassName: `button ${isClassDefined(context.buttonClassName)}`,
+      },
+      template: buttonTemplate,
+      events,
+    });
+  }
 }

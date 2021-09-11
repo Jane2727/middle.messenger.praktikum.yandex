@@ -1,2 +1,6 @@
 export { routes } from './constants';
-export { isClassDefined } from './helpers';
+export { isClassDefined, classIfElse } from './helpers';
+export { Block } from './block';
+export { checkValidation, checkAndCollectData } from './checkValidation';
+export { EventBus } from './eventBus';
+export { HTTPTransport } from './HTTPTransport';

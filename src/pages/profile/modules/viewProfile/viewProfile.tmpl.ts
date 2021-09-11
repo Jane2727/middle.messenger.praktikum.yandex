@@ -12,7 +12,7 @@ export default
             <a class="profile__change-password-link" href="/editProfilePassword">
                 <span>{{changePassword}}</span>
             </a> 
-            <a class="profile__back-link" href="/notSelectedChat">
+            <a class="profile__back-link" href="/login">
                 <span>{{back}}</span>
             </a> 
         </div>

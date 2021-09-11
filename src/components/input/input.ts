@@ -1,46 +1,38 @@
-import * as Handlebars from 'handlebars';
-import inputTemplate from './input.tmpl';
+import { v4 as uuidv4 } from 'uuid';
 import inputProfileTemplate from './inputProfile.tmpl';
-import { isClassDefined } from '../../utils';
+import inputTemplate from './input.tmpl';
+import { isClassDefined, classIfElse } from '../../utils';
 import './input.scss';
 import './inputProfile.scss';
+import { Block } from '../../utils/block';
 
-export interface IInput {
-    isProfileInput?: boolean;
-    type: string;
-    errorMessage?: string;
-    label: string;
-    name: string;
-    required?: boolean;
-    value?: string | number;
-    disabled?: boolean;
-    inputContainerClassName?: string;
-    inputClassName?: string;
+export type TInput = {
+  isProfileInput?: boolean;
+  type: string;
+  errorMessage?: string;
+  label: string;
+  name: string;
+  required?: boolean;
+  value?: string | number;
+  disabled?: boolean;
+  inputContainerClassName?: string;
+  inputClassName?: string;
+  dataType?: string;
 }
 
-export function Input(params: IInput) {
-  const {
-    isProfileInput,
-    required = false,
-    value = null,
-    disabled = false,
-    inputContainerClassName,
-    inputClassName,
-  } = params;
-
-  const template = Handlebars.compile(isProfileInput ? inputProfileTemplate : inputTemplate);
-
-  const baseContainerClassName = isProfileInput ? 'input-profile__container' : 'input__container';
-  const baseInputClassName = isProfileInput ? 'input-profile__input' : 'input';
-
-  const context = {
-    ...params,
-    required,
-    value,
-    disabledInput: disabled,
-    inputContainerClassName: `${baseContainerClassName} ${isClassDefined(inputContainerClassName)}`,
-    inputClassName: `${baseInputClassName} ${isClassDefined(inputClassName)}`,
-  };
-
-  return template(context);
+export class Input extends Block {
+  constructor(context: TInput, events = {}) {
+    super('div', {
+      context: {
+        ...context,
+        disabledInput: context.disabled,
+        inputContainerClassName: `${classIfElse(context.isProfileInput, 'input-profile__container', 'input__container')} 
+          ${isClassDefined(context.inputContainerClassName)}`,
+        inputClassName: `${classIfElse(context.isProfileInput, 'input-profile__input', 'input')} ${isClassDefined(context.inputClassName)}`,
+        id: uuidv4(),
+      },
+      template: context.isProfileInput ? inputProfileTemplate : inputTemplate,
+      events,
+    });
+  }
 }
