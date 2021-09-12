@@ -13,12 +13,20 @@ const showWarningMessage = (input: HTMLInputElement, isError: boolean) => {
   }
 };
 
+const regexp = {
+  checkLogin: /^[\w\d]*$/ig,
+  checkPassword: /^[\w\d]*$/ig,
+  checkPhoneNumber: /^(\+7|7|8)[0-9]{10}$/,
+  checkMail: /^[\w\d.-]*@[\w\d.-]*$/,
+  checkName: /^\w+$/,
+};
+
 const checkLoginField = (input: HTMLInputElement): boolean => {
   let isError = false;
   if (input) {
-    const regexp = /^[\w\d]*$/ig;
+    const { checkLogin } = regexp;
     const { value } = input;
-    isError = !value.match(regexp) || (value.length < 3 || value.length > 20);
+    isError = !value.match(checkLogin) || (value.length < 3 || value.length > 20);
     showWarningMessage(input, isError);
   }
   return isError;
@@ -27,9 +35,9 @@ const checkLoginField = (input: HTMLInputElement): boolean => {
 const checkPasswordField = (input: HTMLInputElement): boolean => {
   let isError = false;
   if (input) {
-    const regexp = /^[\w\d]*$/ig;
+    const { checkPassword } = regexp;
     const { value } = input;
-    isError = !value.match(regexp) || (value.length < 8 || value.length > 40);
+    isError = !value.match(checkPassword) || (value.length < 8 || value.length > 40);
     showWarningMessage(input, isError);
   }
   return isError;
@@ -38,9 +46,9 @@ const checkPasswordField = (input: HTMLInputElement): boolean => {
 const checkPhoneNumberField = (input: HTMLInputElement): boolean => {
   let isError = false;
   if (input) {
-    const regexp = /^(\+7|7|8)[0-9]{10}$/;
+    const { checkPhoneNumber } = regexp;
     const { value } = input;
-    isError = !value.match(regexp) || (value.length < 10 || value.length > 15);
+    isError = !value.match(checkPhoneNumber) || (value.length < 10 || value.length > 15);
     showWarningMessage(input, isError);
   }
   return isError;
@@ -49,9 +57,9 @@ const checkPhoneNumberField = (input: HTMLInputElement): boolean => {
 const checkMailField = (input: HTMLInputElement): boolean => {
   let isError = false;
   if (input) {
-    const regexp = /^[\w\d.-]*@[\w\d.-]*$/;
+    const { checkMail } = regexp;
     const { value } = input;
-    isError = !value.match(regexp);
+    isError = !value.match(checkMail);
     showWarningMessage(input, isError);
   }
   return isError;
@@ -60,9 +68,9 @@ const checkMailField = (input: HTMLInputElement): boolean => {
 const checkNameField = (input: HTMLInputElement): boolean => {
   let isError = false;
   if (input) {
-    const regexp = /^\w+$/;
+    const { checkName } = regexp;
     const { value } = input;
-    isError = !value.match(regexp);
+    isError = !value.match(checkName);
     showWarningMessage(input, isError);
   }
   return isError;

@@ -1,4 +1,6 @@
-export { routes } from './constants';
+export {
+  routes, errorPageCodes, errorPageSchema, editProfilePage,
+} from './constants';
 export { isClassDefined, classIfElse } from './helpers';
 export { Block } from './block';
 export { checkValidation, checkAndCollectData } from './checkValidation';

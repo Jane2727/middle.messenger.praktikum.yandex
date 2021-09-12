@@ -1,16 +1,14 @@
 import * as Handlebars from 'handlebars';
 import errorPageTemplate from './error.tmpl';
-import { routes } from '../../utils';
 import './error.scss';
 
-export function errorPage(route: string) {
+export function errorPage(scheme: {code: string, title: string, linkTitle: string}) {
   const template = Handlebars.compile(errorPageTemplate);
-  const isNotFoundPageError = route === routes.notFound;
 
   const context = {
-    code: isNotFoundPageError ? '404' : '500',
-    title: isNotFoundPageError ? 'Не туда попали' : 'Мы уже фиксим',
-    linkTitle: 'Назад к чатам',
+    code: scheme.code,
+    title: scheme.title,
+    linkTitle: scheme.linkTitle,
   };
 
   return template(context);

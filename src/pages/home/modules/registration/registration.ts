@@ -16,7 +16,7 @@ export function registration() {
       type: 'text',
       required: true,
       dataType: 'email',
-      errorMessage: 'Неверный формат',
+      errorMessage: 'Почта должна быть написана на латинице, допускаются цифры и спецсимволы',
     }, {
       focus: (event: Event) => {
         checkValidation({ event });
@@ -31,7 +31,7 @@ export function registration() {
       type: 'text',
       required: true,
       dataType: 'login',
-      errorMessage: 'Неверный формат',
+      errorMessage: 'Логин должен быть от 3 до 20 символов, написан латиницей, допускаются цифры, дефис и нижнее подчёркивание.',
     }, {
       focus: (event: Event) => {
         checkValidation({ event });
@@ -46,7 +46,7 @@ export function registration() {
       type: 'text',
       required: false,
       dataType: 'name',
-      errorMessage: 'Неверный формат',
+      errorMessage: 'Имя должно быть написано на латинице или кириллице, первая буква заглавная, без цифр и спецсимволов',
     }, {
       focus: (event: Event) => {
         checkValidation({ event });
@@ -61,7 +61,7 @@ export function registration() {
       type: 'text',
       required: false,
       dataType: 'name',
-      errorMessage: 'Неверный формат',
+      errorMessage: 'Фамилия должна быть написана на латинице или кириллице, первая буква заглавная, без цифр и спецсимволов',
     },
     {
       focus: (event: Event) => {
@@ -77,7 +77,7 @@ export function registration() {
       type: 'text',
       required: false,
       dataType: 'phone',
-      errorMessage: 'Неверный формат',
+      errorMessage: 'Телефон должен быть от 10 до 15 символов, состоять из цифр, может начинается с плюса.',
     },
     {
       focus: (event: Event) => {
@@ -93,7 +93,7 @@ export function registration() {
       type: 'password',
       required: true,
       dataType: 'password',
-      errorMessage: 'Неверный формат',
+      errorMessage: 'Пароль должен быть от 8 до 40 символов, обязательно хотя бы одна заглавная буква и одна цифра',
     }, {
       focus: (event: Event) => {
         checkValidation({ event });
@@ -108,7 +108,7 @@ export function registration() {
       type: 'password',
       required: true,
       dataType: 'password',
-      errorMessage: 'Неверный пароль',
+      errorMessage: 'Введенные пароли не совпадают',
     },
     {
       focus: (event: Event) => {

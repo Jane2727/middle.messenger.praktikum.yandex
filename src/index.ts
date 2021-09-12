@@ -2,11 +2,19 @@ import { homePage } from './pages/home';
 import { errorPage } from './pages/errors';
 import { chatPage } from './pages/chat';
 import { profilePage } from './pages/profile';
-import { routes } from './utils';
+import {
+  editProfilePage, errorPageCodes, errorPageSchema, routes,
+} from './utils';
 import './common.scss';
 import './utils/helpers';
 
 const root: HTMLElement | null = document.getElementById('root');
+
+const getErrorScheme = (code: string) => ({
+  code,
+  title: errorPageSchema[code].title,
+  linkTitle: errorPageSchema[code].linkTitle,
+});
 
 const content = {
   login: homePage(routes.login),
@@ -14,10 +22,12 @@ const content = {
   notSelectedChat: chatPage(routes.notSelectedChat),
   chatSelected: chatPage(routes.chatSelected),
   viewProfile: profilePage(routes.viewProfile),
-  editProfileData: profilePage(routes.editProfileData),
-  editProfilePassword: profilePage(routes.editProfilePassword),
-  internalServerError: errorPage(routes.internalServerError),
-  notFound: errorPage(routes.notFound),
+  editProfileData: profilePage(editProfilePage.editProfileData),
+  editProfilePassword: profilePage(editProfilePage.editProfilePassword),
+  internalServerError: errorPage(getErrorScheme(errorPageCodes.internalServerError)),
+  notFound: errorPage(getErrorScheme(errorPageCodes.notFound)),
+  forbidden: errorPage(getErrorScheme(errorPageCodes.forbidden)),
+  serviceUnavailable: errorPage(getErrorScheme(errorPageCodes.serviceUnavailable)),
 };
 
 if (root) {
@@ -43,6 +53,12 @@ if (root) {
       break;
     case `/${routes.editProfilePassword}`:
       root.innerHTML = content.editProfilePassword;
+      break;
+    case `/${routes.serviceUnavailable}`:
+      root.innerHTML = content.serviceUnavailable;
+      break;
+    case `/${routes.forbidden}`:
+      root.innerHTML = content.forbidden;
       break;
     case `/${routes.internalServerError}`:
       root.innerHTML = content.internalServerError;

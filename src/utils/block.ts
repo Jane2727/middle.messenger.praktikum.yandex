@@ -4,7 +4,7 @@ import { EventBus } from './eventBus';
 export type Dictionary = Record<string, any>;
 
 export type TBlockProps = {
-  context?: any;
+  context?: Dictionary;
   template?: string;
   events?: {[event: string]: any};
 } & Record<string, any>;
@@ -101,7 +101,7 @@ export class Block {
 
   _render() {
     const { context } = this.props;
-    this._elementId = context.id;
+    this._elementId = context && context.id;
     const block = this.render();
     if (block) {
       const isElementExist = this._element?.firstElementChild !== null;
@@ -124,19 +124,17 @@ export class Block {
   }
 
   _makePropsProxy(props: Dictionary) {
-    const self = this;
-
     return new Proxy(props, {
-      get(target, prop: string) {
+      get: (target, prop: string) => {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target, prop: string, value: unknown) {
+      set: (target, prop: string, value: unknown) => {
         target[prop] = value;
-        self.eventBus.emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
+        this.eventBus.emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
         return true;
       },
-      deleteProperty() {
+      deleteProperty: () => {
         throw new Error('Нет доступа');
       },
     });
@@ -152,8 +150,7 @@ export class Block {
 
     if (target && (this._elementId === id)) {
       event.preventDefault();
-      func.bind(this);
-      func(event);
+      func.call(this, event);
     }
   }
 
@@ -184,10 +181,10 @@ export class Block {
   }
 
   show() {
-    this.element.style.display = 'block';
+    this.element.classList.remove('hidden');
   }
 
   hide() {
-    this.element.style.display = 'none';
+    this.element.classList.add('hidden');
   }
 }

@@ -32,7 +32,7 @@ export class HTTPTransport {
   }
 
   request(url: string, options: Options = {}, timeout = 5000): Promise<XMLHttpRequest> {
-    const { headers = {}, method, data } = options;
+    const { headers = { 'Content-Type': 'application/json' }, method, data } = options;
 
     return new Promise((resolve, reject) => {
       if (!method) {
@@ -49,7 +49,12 @@ export class HTTPTransport {
 
       Object.keys(headers).forEach((key) => xhr.setRequestHeader(key, headers[key]));
 
-      xhr.onload = () => resolve(xhr);
+      xhr.onload = () => {
+        const { status, response } = xhr;
+        return (status >= 200 && status <= 299) ? resolve(response) : reject(response);
+      };
+
+      resolve(xhr);
       xhr.onabort = reject;
       xhr.onerror = reject;
 

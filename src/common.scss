@@ -34,8 +34,12 @@ a {
     text-decoration: none;
 }
 
-.hidden {
+.invisible {
     opacity: 0;
     overflow: hidden;
     pointer-events: none;
+}
+
+.hidden {
+    display: none !important
 }
