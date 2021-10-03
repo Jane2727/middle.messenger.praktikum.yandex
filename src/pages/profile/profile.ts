@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as Handlebars from 'handlebars';
 import profileTemplate from './profile.tmpl';
 import './profile.scss';
-import avatarIcon from '../../../static/assets/avatar-icon.svg';
+import avatarIcon from '../../../static/assets/avatar-icon';
 import Block from '../../utils/block';
 import ViewProfilePage from './modules/viewProfile/viewProfile';
 import EditProfilePage from './modules/editProfile/editProfile';

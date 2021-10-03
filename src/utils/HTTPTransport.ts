@@ -21,8 +21,11 @@ export default class HTTPTransport {
     this.url = `${HTTPTransport.DEFAULT_URL}${path}`;
   }
 
-  public get<Response>(path = '/'): Promise<Response> {
-    return this.request<Response>(this.url + path);
+  public get<Response>(path = '/', data?: unknown): Promise<Response> {
+    return this.request<Response>(this.url + path, {
+      method: METHODS.GET,
+      data,
+    });
   }
 
   public post<Response = void>(path: string, data?: unknown): Promise<Response> {
@@ -47,9 +50,10 @@ export default class HTTPTransport {
     });
   }
 
-  public delete<Response>(path: string): Promise<Response> {
+  public delete<Response>(path: string, data?: unknown): Promise<Response> {
     return this.request<Response>(this.url + path, {
       method: METHODS.DELETE,
+      data,
     });
   }
 

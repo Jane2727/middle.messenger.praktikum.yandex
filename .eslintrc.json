@@ -16,6 +16,8 @@
       "prefer-promise-reject-errors": "off",
       "camelcase":  "off",
       "no-return-assign": "off",
+      "global-require": "off",
+      "no-multi-assign": "off",
       "import/extensions": [
         "error",
         "ignorePackages",

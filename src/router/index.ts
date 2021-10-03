@@ -21,6 +21,7 @@ const getErrorScheme = (code: string) => ({
 
 router
   .use('/', HomePage, { isLogin: true })
+  .use(`/${routes.login}`, HomePage, { isLogin: true })
   .use(`/${routes.registration}`, HomePage, { isLogin: false })
   .use(`/${routes.notSelectedChat}`, ChatPage, { isChatSelected: false })
   .use(`/${routes.chatSelected}`, ChatPage, { isChatSelected: true })
@@ -31,6 +32,7 @@ router
   .use(`/${routes.forbidden}`, ErrorPage, { scheme: getErrorScheme(routes.forbidden) })
   .use(`/${routes.internalServerError}`, ErrorPage, { scheme: getErrorScheme(routes.internalServerError) })
   .use(`/${routes.unauthorized}`, ErrorPage, { scheme: getErrorScheme(routes.unauthorized) })
-  .use(`/${routes.notFound}`, ErrorPage, { scheme: getErrorScheme(routes.notFound) });
+  .use(`/${routes.notFound}`, ErrorPage, { scheme: getErrorScheme(routes.notFound) })
+  .notFound(ErrorPage, { scheme: getErrorScheme(routes.notFound) });
 
 export default router;

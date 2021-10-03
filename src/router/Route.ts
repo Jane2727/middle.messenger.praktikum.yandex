@@ -2,7 +2,7 @@ import { Dictionary } from '../utils/block';
 
 const isEqual = (lhs: string, rhs: string) => lhs === rhs;
 
-const render = (query: string, block: any) => {
+const render = (block: any) => {
   const root: HTMLElement | null = document.getElementById('root');
   if (root) root.innerHTML = block.transformToString();
 };
@@ -49,7 +49,7 @@ class Route {
 
   render() {
     this._block = new this._blockClass(this._props.context);
-    render(this._props.rootQuery, this._block);
+    render(this._block);
   }
 }
 

@@ -5,11 +5,12 @@ import Route, { IRoute } from './Route';
 export interface IRouter {
     use(pathname: string, block: Dictionary, context: Dictionary): IRouter;
     start(): void;
-    _onRoute(pathname: string): void;
     go(pathname?: string): void;
-    getRoute(pathname: string): void;
+    getCurrentRoute(): void;
+    back(): void;
     back(): void;
     forward(): void;
+    routes(): IRoute[];
 }
 
 class Router {
@@ -22,6 +23,8 @@ class Router {
     _rootQuery: string;
 
     static __instance: Router | null;
+
+    notFoundRoute: IRoute | undefined;
 
     constructor(rootQuery: string) {
       if (Router.__instance) {
@@ -46,6 +49,14 @@ class Router {
       return this;
     }
 
+    notFound(block: Dictionary, context: Dictionary = {}) {
+      this.notFoundRoute = new Route(`/${routes.notFound}`, block, {
+        rootQuery: this._rootQuery,
+        context,
+      });
+      return this;
+    }
+
     start() {
       window.onpopstate = (event: PopStateEvent & { currentTarget: Window }) => {
         this._onRoute(event.currentTarget.location.pathname);
@@ -61,14 +72,17 @@ class Router {
         this._currentRoute.leave();
       }
 
-      this._currentRoute = route;
+      if (!route) {
+        this.notFoundRoute?.navigate(`/${routes.notFound}`);
+      } else {
+        this._currentRoute = route;
 
-      try {
-        route?.navigate(pathname);
-      } catch (e) {
-        const errorPage = this.getRoute(`/${routes.notFound}`);
-        this._currentRoute = errorPage;
-        errorPage?.navigate(`/${routes.notFound}`);
+        try {
+          route.navigate(pathname);
+        } catch (e) {
+          this._currentRoute = this.notFoundRoute;
+          this.notFoundRoute?.navigate(`/${routes.notFound}`);
+        }
       }
     }
 
@@ -83,6 +97,10 @@ class Router {
 
     getRoute(pathname: string) {
       return this.routes.find((route) => route.match(pathname));
+    }
+
+    getCurrentRoute() {
+      return this._currentRoute;
     }
 
     back() {

@@ -3,7 +3,7 @@ import * as Handlebars from 'handlebars';
 import chatPageTemplate from './chat.tmpl';
 import newChatTemplate from './newChat.tmpl';
 import chatElemTemplate from './chatElem.tmpl';
-import avatarIcon from '../../../static/assets/avatar-icon.svg';
+import avatarIcon from '../../../static/assets/avatar-icon';
 import './chat.scss';
 import Block from '../../utils/block';
 import Input from '../../components/input/input';
