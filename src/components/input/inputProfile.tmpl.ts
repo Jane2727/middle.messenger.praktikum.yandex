@@ -4,5 +4,5 @@ export default
         <input class="{{inputClassName}}" type="{{type}}" name="{{name}}" value="{{value}}" required={{required}} data-id="{{id}}" data-type="{{dataType}}"  
             {{#if disabledInput }}disabled{{/if}}
         />
-        <div class="input-profile__error-message hidden">{{errorMessage}}</div>
+        <div class="input-profile__error-message invisible">{{errorMessage}}</div>
     </div>`;

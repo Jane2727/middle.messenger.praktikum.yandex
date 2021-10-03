@@ -3,26 +3,21 @@ export default
         <div class="chat-page__container">
             <div class="chat-list-area">
                 <div class="profile">
-                    <a class="profile__link" href="/viewProfile">
+                    <a class="profile__link" href="/settings">
                         <span class="profile__link-title">{{profileTitle}}</span>
                     </a>
                 </div>
                 <div class="search-input">
                     {{{searchInput}}}
                 </div>
+                    {{{createChat}}}
+                <div class="chat-form hidden" id="chat-form">
+                    <div class="chat-form-title">{{newChatTitle}}</div>
+                    {{{chatForm}}}
+                </div>
                 <ul class="chat-list">
                     {{#each contacts}}
-                        <a class="profile__link" href="/chatSelected">
-                            <li class="chat-list__item">
-                                <div class="chat-list__item-image">
-                                    <img src="{{avatarIcon}}" class="chat-list__item-icon">
-                                </div>
-                                <div class="chat-list__item-data">
-                                    <div class="chat-list__item-name">{{this.name}}</div>
-                                    <div class="chat-list__item-message">{{this.message}}</div>
-                                </div>
-                            </li>
-                        </a>
+                        {{{this}}}
                     {{/each}}
                 </ul>
             </div>

@@ -1,12 +1,17 @@
 import * as Handlebars from 'handlebars';
+import { v4 as uuidv4 } from 'uuid';
 import loginTemplate from './login.tmpl';
-import { Input } from '../../../../components/input';
-import { Button } from '../../../../components/button';
 import './login.scss';
-import { Form } from '../../../../components/form';
 import { checkValidation, checkAndCollectData } from '../../../../utils/checkValidation';
+import Block from '../../../../utils/block';
+import Input from '../../../../components/input/input';
+import Button from '../../../../components/button/button';
+import Form from '../../../../components/form/form';
+import LoginController from '../../../../controllers/loginController';
 
-export function login() {
+const controller = new LoginController();
+
+const getTemplate = () => {
   const template = Handlebars.compile(loginTemplate);
 
   const loginInput = new Input({
@@ -61,11 +66,24 @@ export function login() {
       },
       content: template(context),
     }, {
-      submit: (event: Event) => {
-        checkAndCollectData(event, '/notSelectedChat');
+      submit: async (event: CustomEvent) => {
+        await checkAndCollectData(event, '/messenger', controller, 'login');
       },
     },
   );
 
   return form.transformToString();
+};
+
+export default class LoginPage extends Block {
+  constructor(context = {}, events = {}) {
+    super('div', {
+      context: {
+        ...context,
+        id: uuidv4(),
+      },
+      template: getTemplate(),
+      events,
+    });
+  }
 }

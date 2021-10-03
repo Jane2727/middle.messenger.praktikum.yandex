@@ -1,12 +1,17 @@
 import * as Handlebars from 'handlebars';
+import { v4 as uuidv4 } from 'uuid';
 import registrationTemplate from './registration.tmpl';
-import { Input } from '../../../../components/input';
-import { Button } from '../../../../components/button';
 import './registration.scss';
-import { Form } from '../../../../components/form';
 import { checkAndCollectData, checkValidation } from '../../../../utils';
+import Block from '../../../../utils/block';
+import Input from '../../../../components/input/input';
+import Button from '../../../../components/button/button';
+import Form from '../../../../components/form/form';
+import LoginController from '../../../../controllers/loginController';
 
-export function registration() {
+const controller = new LoginController();
+
+const getTemplate = () => {
   const template = Handlebars.compile(registrationTemplate);
 
   const inputs = [
@@ -41,7 +46,7 @@ export function registration() {
       },
     }),
     new Input({
-      name: 'name',
+      name: 'first_name',
       label: 'Имя',
       type: 'text',
       required: false,
@@ -56,7 +61,7 @@ export function registration() {
       },
     }),
     new Input({
-      name: 'lastName',
+      name: 'second_name',
       label: 'Фамилия',
       type: 'text',
       required: false,
@@ -103,7 +108,7 @@ export function registration() {
       },
     }),
     new Input({
-      name: 'secondPassword',
+      name: 'password',
       label: 'Пароль (ещё раз)',
       type: 'password',
       required: true,
@@ -138,11 +143,24 @@ export function registration() {
       },
       content: template(context),
     }, {
-      submit: (event: Event) => {
-        checkAndCollectData(event, '/notSelectedChat');
+      submit: async (event: CustomEvent) => {
+        await checkAndCollectData(event, '/messenger', controller, 'signUp');
       },
     },
   );
 
   return form.transformToString();
+};
+
+export default class RegistrationPage extends Block {
+  constructor(context = {}, events = {}) {
+    super('div', {
+      context: {
+        ...context,
+        id: uuidv4(),
+      },
+      template: getTemplate(),
+      events,
+    });
+  }
 }

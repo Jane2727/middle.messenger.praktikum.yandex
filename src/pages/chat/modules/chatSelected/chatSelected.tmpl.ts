@@ -9,7 +9,16 @@ export default
                 <img src="{{chatSettingsIcon}}" class="chat-settings__icon">
             </div>
         </div>
-        <div class="current-chat__main"></div>
+        <div class="current-chat__main">
+        {{{createUser}}}
+        {{#each users}}
+            {{{this}}}
+        {{/each}}
+        <div class="user-form hidden" id="user-form">
+            <div class="user-form-title">{{newUserTitle}}</div>
+            {{{userForm}}}
+        </div>
+        </div>
         <div class="current-chat__footer">
             <div class="add-file-button">
                 <img src="{{addFileIcon}}" class="add-file-button__icon">

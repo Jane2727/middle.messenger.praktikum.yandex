@@ -15,6 +15,11 @@
     border-right: 1px solid var(--dark-gray-color);
 }
 
+.current-chat-container  {
+    display: flex;
+    width: 100%;
+}
+
 .profile {
     margin-top: 20px;
     margin-left: 234px;
@@ -26,7 +31,7 @@
 
 .search-input {
     text-align: center;
-    margin: 20px 0;
+    margin-top: 20px;
 }
 
 .chat-list {
@@ -67,3 +72,36 @@
 .message-input {
     flex-grow: 1;
 }
+
+.current-chat__main {
+    flex-grow: 1;
+    padding: 10px;
+}
+
+.chat-form {
+    position: absolute;
+    border: 1px solid gray;
+    width: 400px;
+    height: 230px;
+    top: calc(50% - 115px);
+    left: calc(50% - 200px);
+    border-radius: 8px;
+    background: var(--bg-form-chat-color);
+}
+
+.new-chat-button {
+    text-align: center;
+    margin: 10px 14px;
+}
+
+.chat-form-title {
+    font-size: 14px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.create-chat-button,
+.back-chat-button {
+    margin: 10px calc(50% - 140px);
+}
+

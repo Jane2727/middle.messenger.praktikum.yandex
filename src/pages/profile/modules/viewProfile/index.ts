@@ -1,1 +1,0 @@
-export { viewProfile } from './viewProfile';

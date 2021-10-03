@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import formTemplate from './form.tmpl';
 import './form.scss';
-import { Block, Dictionary } from '../../utils/block';
+import Block, { Dictionary } from '../../utils/block';
 
 export type TForm = {
     children?: {
@@ -11,7 +11,7 @@ export type TForm = {
     content?: string,
 }
 
-export class Form extends Block {
+export default class Form extends Block {
   constructor(context: TForm, events = {}) {
     super('div', {
       context: {

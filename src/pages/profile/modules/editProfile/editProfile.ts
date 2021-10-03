@@ -1,19 +1,30 @@
 import * as Handlebars from 'handlebars';
+import { v4 as uuidv4 } from 'uuid';
 import editProfileTemplate from './editProfile.tmpl';
-import { Input } from '../../../../components/input';
-import { Button } from '../../../../components/button';
 import './editProfile.scss';
-import { Form } from '../../../../components/form';
 import { checkAndCollectData, checkValidation } from '../../../../utils';
-import { Dictionary } from '../../../../utils/block';
+import Block, { Dictionary } from '../../../../utils/block';
+import Input from '../../../../components/input/input';
+import Button from '../../../../components/button/button';
+import Form from '../../../../components/form/form';
+import UserController from '../../../../controllers/userController';
+import router from '../../../../router';
 
-export function editProfile(profileType: string) {
+const controller = new UserController();
+
+const getTemplate = (profileType: string) => {
   const template = Handlebars.compile(editProfileTemplate);
+
+  const item = localStorage.getItem('user');
+  let user;
+  if (item) {
+    user = JSON.parse(item);
+  }
 
   const profileInputs: Dictionary = {
     passwordInputs: [
       new Input({
-        name: 'password',
+        name: 'oldPassword',
         label: 'Старый пароль',
         type: 'password',
         required: true,
@@ -30,7 +41,7 @@ export function editProfile(profileType: string) {
         },
       }),
       new Input({
-        name: 'secondPassword',
+        name: 'newPassword',
         label: 'Новый пароль',
         type: 'password',
         required: true,
@@ -46,7 +57,7 @@ export function editProfile(profileType: string) {
         },
       }),
       new Input({
-        name: 'secondPassword',
+        name: 'newSecondPassword',
         label: 'Повторите новый пароль',
         type: 'password',
         required: true,
@@ -64,7 +75,7 @@ export function editProfile(profileType: string) {
     ],
     profileDataInputs: [
       new Input({
-        value: 'pochta@yandex.ru',
+        value: user?.email || '',
         name: 'email',
         label: 'Почта',
         type: 'text',
@@ -83,7 +94,7 @@ export function editProfile(profileType: string) {
         },
       }),
       new Input({
-        value: 'john',
+        value: user?.login || '',
         name: 'login',
         label: 'Логин',
         type: 'text',
@@ -102,8 +113,8 @@ export function editProfile(profileType: string) {
         },
       }),
       new Input({
-        value: 'john',
-        name: 'name',
+        value: user?.first_name || '',
+        name: 'first_name',
         label: 'Имя',
         type: 'text',
         required: false,
@@ -121,8 +132,8 @@ export function editProfile(profileType: string) {
         },
       }),
       new Input({
-        value: 'john',
-        name: 'lastName',
+        value: user?.second_name || '',
+        name: 'second_name',
         label: 'Фамилия',
         type: 'text',
         required: false,
@@ -140,8 +151,8 @@ export function editProfile(profileType: string) {
         },
       }),
       new Input({
-        value: 'john',
-        name: 'nickname',
+        value: user?.display_name || '',
+        name: 'display_name',
         label: 'Имя в чате',
         type: 'text',
         disabled: false,
@@ -158,7 +169,7 @@ export function editProfile(profileType: string) {
         },
       }),
       new Input({
-        value: '+76667776655',
+        value: user?.phone || '',
         name: 'phone',
         label: 'Телефон',
         type: 'text',
@@ -185,6 +196,10 @@ export function editProfile(profileType: string) {
 
   const back = new Button({
     title: 'Назад',
+  }, {
+    click: async () => {
+      router.go('/messenger');
+    },
   });
 
   const inputs = profileInputs[profileType];
@@ -203,11 +218,29 @@ export function editProfile(profileType: string) {
       },
       content: template(context),
     }, {
-      submit: (event: Event) => {
-        checkAndCollectData(event, '/viewProfile');
+      submit: async (event: Event) => {
+        const action = profileType === 'passwordInputs' ? 'changeUserPassword' : 'changeUserProfile';
+        await checkAndCollectData(event, '/settings', controller, action);
       },
     },
   );
 
   return form.transformToString();
+};
+
+export type TEditProfilePage = {
+  profileType: string,
+}
+
+export default class EditProfilePage extends Block {
+  constructor(context: TEditProfilePage, events = {}) {
+    super('div', {
+      context: {
+        ...context,
+        id: uuidv4(),
+      },
+      template: getTemplate(context.profileType),
+      events,
+    });
+  }
 }

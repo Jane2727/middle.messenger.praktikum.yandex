@@ -1,5 +1,5 @@
 import * as Handlebars from 'handlebars';
-import { EventBus } from './eventBus';
+import EventBus from './eventBus';
 
 export type Dictionary = Record<string, any>;
 
@@ -12,9 +12,10 @@ export type TBlockProps = {
 export type TMetaBlock = {
   tagName: string;
   props: Dictionary;
+  className?: string;
 }
 
-export class Block {
+export default class Block {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -34,10 +35,11 @@ export class Block {
 
   protected _template: Handlebars.TemplateDelegate<any>;
 
-  constructor(tagName: string = 'div', props = {}) {
+  constructor(tagName: string = 'div', props = {}, className?: string) {
     this._meta = {
       tagName,
       props,
+      className,
     };
 
     this.props = this._makePropsProxy(props);
@@ -58,8 +60,8 @@ export class Block {
   }
 
   _createResources() {
-    const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName);
+    const { tagName, className } = this._meta;
+    this._element = this._createDocumentElement(tagName, className);
   }
 
   init() {
@@ -140,8 +142,10 @@ export class Block {
     });
   }
 
-  _createDocumentElement(tagName: string) {
-    return document.createElement(tagName);
+  _createDocumentElement(tagName: string, className?: string) {
+    const node = document.createElement(tagName);
+    if (className) node.classList.add(className);
+    return node;
   }
 
   _triggerEvent(event: Event, func: Function) {
@@ -186,5 +190,9 @@ export class Block {
 
   hide() {
     this.element.classList.add('hidden');
+  }
+
+  remove() {
+    this._element.remove();
   }
 }

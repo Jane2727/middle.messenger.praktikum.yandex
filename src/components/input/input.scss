@@ -46,3 +46,10 @@
     height: 32px;
     padding: 10px;
 }
+
+.new-chat-input,
+.new-user-input {
+    height: 30px;
+    width: 80%;
+    margin: 0 calc(40% - 120px);
+}

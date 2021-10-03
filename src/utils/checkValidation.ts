@@ -1,3 +1,4 @@
+import router from '../router';
 import { Dictionary } from './block';
 
 const showWarningMessage = (input: HTMLInputElement, isError: boolean) => {
@@ -6,9 +7,9 @@ const showWarningMessage = (input: HTMLInputElement, isError: boolean) => {
 
   if (messageElement) {
     if (isError) {
-      messageElement.classList.remove('hidden');
+      messageElement.classList.remove('invisible');
     } else {
-      messageElement.classList.add('hidden');
+      messageElement.classList.add('invisible');
     }
   }
 };
@@ -107,11 +108,11 @@ export const checkValidation = (data: {event?: Event | null, input?: HTMLInputEl
   }
 };
 
-const getFormModel = (form: HTMLFormElement) => {
+const getFormModel = (form: HTMLFormElement): Dictionary => {
   const inputs = form.querySelectorAll('input');
 
   if (!inputs || inputs?.length === 0) {
-    return;
+    return {};
   }
 
   const data: Dictionary = [...inputs].reduce((model: Dictionary, input: HTMLInputElement) => {
@@ -120,7 +121,7 @@ const getFormModel = (form: HTMLFormElement) => {
     return model;
   }, {});
 
-  console.log(data);
+  return data;
 };
 
 const checkAllInputsFields = (form: HTMLFormElement) => {
@@ -128,10 +129,17 @@ const checkAllInputsFields = (form: HTMLFormElement) => {
   return [...inputs].map((input) => checkValidation({ input })).every((isError) => isError === false);
 };
 
-export const checkAndCollectData = (event: Event, nextRoute: string) => {
+export const checkAndCollectData = async (event: Event, nextRoute: string, controller?: any, method?: string) => {
   const form = event.target as HTMLFormElement;
   if (form && checkAllInputsFields(form)) {
-    getFormModel(form);
-    if (nextRoute) window.location.href = nextRoute;
+    const data = getFormModel(form);
+    if (method) {
+      const isError = await controller[method](data);
+      if (!isError) {
+        router.go(nextRoute);
+      } else {
+        console.warn(isError);
+      }
+    }
   }
 };

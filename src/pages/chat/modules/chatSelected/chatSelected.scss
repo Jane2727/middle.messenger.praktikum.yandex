@@ -1,6 +1,6 @@
 .current-chat-area__selected {
     display: flex;
-    width: calc( 100% - 310px);
+    width: 100%;
     flex-direction: column;
     justify-content: space-between;
 }
@@ -64,4 +64,31 @@
     &:hover {
         cursor: pointer;
     }
+}
+
+.user-form {
+    position: absolute;
+    border: 1px solid gray;
+    width: 400px;
+    height: 230px;
+    top: calc(50% - 115px);
+    left: calc(50% - 200px);
+    border-radius: 8px;
+    background: var(--bg-form-chat-color);
+}
+
+.new-user-button {
+    text-align: center;
+    margin: 10px 14px;
+}
+
+.user-form-title {
+    font-size: 14px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.create-user-button,
+.back-chat-button {
+    margin: 10px calc(50% - 140px);
 }

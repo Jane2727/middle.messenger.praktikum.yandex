@@ -1,24 +1,18 @@
 import { Dictionary } from './block';
 
 export const routes: Dictionary = Object.freeze({
-  login: 'login',
-  registration: 'registration',
-  notFound: 'notFound',
-  internalServerError: 'internalServerError',
-  forbidden: 'forbidden',
-  serviceUnavailable: 'serviceUnavailable',
-  chatSelected: 'chatSelected',
-  notSelectedChat: 'notSelectedChat',
-  viewProfile: 'viewProfile',
-  editProfileData: 'editProfileData',
-  editProfilePassword: 'editProfilePassword',
-});
-
-export const errorPageCodes: Dictionary = Object.freeze({
+  login: 'sign-in',
+  registration: 'sign-up',
   notFound: '404',
   internalServerError: '500',
   forbidden: '403',
   serviceUnavailable: '503',
+  unauthorized: '401',
+  chatSelected: 'messenger-active',
+  notSelectedChat: 'messenger',
+  viewProfile: 'settings',
+  editProfileData: 'settings-edit-data',
+  editProfilePassword: 'settings-edit-password',
 });
 
 export const errorPageSchema: Dictionary = Object.freeze({
@@ -37,6 +31,10 @@ export const errorPageSchema: Dictionary = Object.freeze({
   503: {
     title: 'Сервис недоступен',
     linkTitle: 'Какой-то ещё текст',
+  },
+  401: {
+    title: 'Пользователь не авторизован',
+    linkTitle: 'Назад к странице входа',
   },
 });
 

@@ -29,6 +29,7 @@
     color: var(--blue-color);
 }
 
-.profile__back-link span {
-    color: var(--warning-color);
+.profile__back-link {
+    text-align: center; 
+    margin-top: 30px;
 }
