@@ -5,10 +5,10 @@ import Block, { Dictionary } from '../../utils/block';
 
 export type TForm = {
     children?: {
-        inputs?: Dictionary[],
-        button?: Dictionary,
-    },
-    content?: string,
+        inputs?: Dictionary[];
+        button?: Dictionary;
+    };
+    content?: string;
 }
 
 export default class Form extends Block {
@@ -16,10 +16,10 @@ export default class Form extends Block {
     super('div', {
       context: {
         ...context,
-        id: uuidv4(),
+        id: uuidv4()
       },
       template: formTemplate,
-      events,
+      events
     });
   }
 }

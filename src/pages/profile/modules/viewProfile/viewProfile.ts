@@ -7,14 +7,12 @@ import Input from '../../../../components/input/input';
 import Button from '../../../../components/button/button';
 import LoginController from '../../../../controllers/loginController';
 import router from '../../../../router';
-// import store from '../../../../store';
 
 const controller = new LoginController();
 
 const getTemplate = () => {
   const template = Handlebars.compile(viewProfileTemplate);
 
-  // const data = store.getState();
   const item = localStorage.getItem('user');
   let user;
   if (item) {
@@ -29,7 +27,7 @@ const getTemplate = () => {
       type: 'text',
       required: true,
       disabled: true,
-      isProfileInput: true,
+      isProfileInput: true
     }),
     new Input({
       value: user?.login || '',
@@ -38,7 +36,7 @@ const getTemplate = () => {
       type: 'text',
       required: true,
       disabled: true,
-      isProfileInput: true,
+      isProfileInput: true
     }),
     new Input({
       value: user?.first_name || '',
@@ -47,7 +45,7 @@ const getTemplate = () => {
       type: 'text',
       required: false,
       disabled: true,
-      isProfileInput: true,
+      isProfileInput: true
     }),
     new Input({
       value: user?.second_name || '',
@@ -56,7 +54,7 @@ const getTemplate = () => {
       type: 'text',
       required: false,
       disabled: true,
-      isProfileInput: true,
+      isProfileInput: true
     }),
     new Input({
       value: user?.phone || '',
@@ -65,7 +63,7 @@ const getTemplate = () => {
       type: 'text',
       required: false,
       disabled: true,
-      isProfileInput: true,
+      isProfileInput: true
     }),
     new Input({
       value: user?.display_name || '',
@@ -73,24 +71,33 @@ const getTemplate = () => {
       label: 'Имя в чате',
       type: 'text',
       disabled: true,
-      isProfileInput: true,
-    }),
+      isProfileInput: true
+    })
   ];
 
-  const back = new Button({
-    title: 'Выйти',
+  const signOutButton = new Button({
+    title: 'Выйти'
   }, {
     click: async () => {
       await controller.logOut();
       router.go('/');
-    },
+    }
+  });
+
+  const backButton = new Button({
+    title: 'Назад к чатам'
+  }, {
+    click: async () => {
+      router.go('/messenger');
+    }
   });
 
   const context = {
     inputs: inputs.map((input) => input.transformToString()),
     changeData: 'Изменить данные',
     changePassword: 'Изменить пароль',
-    back: back.transformToString(),
+    signOut: signOutButton.transformToString(),
+    back: backButton.transformToString()
   };
 
   return template(context);
@@ -101,10 +108,10 @@ export default class ViewProfilePage extends Block {
     super('div', {
       context: {
         ...context,
-        id: uuidv4(),
+        id: uuidv4()
       },
       template: getTemplate(),
-      events,
+      events
     });
   }
 }

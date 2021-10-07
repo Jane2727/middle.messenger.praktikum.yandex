@@ -6,8 +6,8 @@ import LoginPage from './modules/login/login';
 import Block from '../../utils/block';
 
 export type THomePage = {
-  isLogin?: boolean,
-  content?: string,
+  isLogin?: boolean;
+  content?: string;
 }
 
 export default class HomePage extends Block {
@@ -17,10 +17,10 @@ export default class HomePage extends Block {
         ...context,
         header: context.isLogin ? 'Вход' : 'Регистрация',
         content: context.isLogin ? new LoginPage().transformToString() : new RegistrationPage().transformToString(),
-        id: uuidv4(),
+        id: uuidv4()
       },
       template: homePageTemplate,
-      events,
+      events
     });
   }
 }

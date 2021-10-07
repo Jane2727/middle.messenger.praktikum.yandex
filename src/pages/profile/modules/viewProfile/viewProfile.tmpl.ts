@@ -13,7 +13,10 @@ export default
                 <span>{{changePassword}}</span>
             </a> 
             <div class="profile__back-link">
-                <span>{{{back}}}</span>
+                {{{back}}}
+            </div> 
+            <div class="profile__sign-out-link">
+                {{{signOut}}}
             </div> 
         </div>
     </div>`;

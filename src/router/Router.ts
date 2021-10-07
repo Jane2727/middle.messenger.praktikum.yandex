@@ -43,7 +43,7 @@ class Router {
     use(pathname: string, block: Dictionary, context: Dictionary = {}) {
       const route: IRoute = new Route(pathname, block, {
         rootQuery: this._rootQuery,
-        context,
+        context
       });
       this.routes.push(route);
       return this;
@@ -52,7 +52,7 @@ class Router {
     notFound(block: Dictionary, context: Dictionary = {}) {
       this.notFoundRoute = new Route(`/${routes.notFound}`, block, {
         rootQuery: this._rootQuery,
-        context,
+        context
       });
       return this;
     }

@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as Handlebars from 'handlebars';
 import profileTemplate from './profile.tmpl';
 import './profile.scss';
-import avatarIcon from '../../../static/assets/avatar-icon';
+import { avatarIconBase64 } from '../../utils/constants';
 import Block from '../../utils/block';
 import ViewProfilePage from './modules/viewProfile/viewProfile';
 import EditProfilePage from './modules/editProfile/editProfile';
@@ -10,9 +10,9 @@ import Avatar from '../../components/avatar/avatar';
 import UserController from '../../controllers/userController';
 
 export type TProfilePage = {
-  isViewProfile?: boolean,
-  profileType?: string,
-  content?: string,
+  isViewProfile?: boolean;
+  profileType?: string;
+  content?: string;
 }
 
 const controller = new UserController();
@@ -28,9 +28,9 @@ const getName = () => {
 };
 
 const getAvatar = () => {
-  const avatar = localStorage.getItem('avatar-icon');
+  const avatar = localStorage.getItem('avatarIcon');
 
-  return avatar || avatarIcon;
+  return avatar || avatarIconBase64;
 };
 
 const getTemplate = (profileType?: string, isViewProfile?: boolean) => {
@@ -38,35 +38,19 @@ const getTemplate = (profileType?: string, isViewProfile?: boolean) => {
 
   const avatar = new Avatar({
     className: 'profile-page__image__icon',
-    src: getAvatar(),
+    src: getAvatar()
   }, {
     change: async (e: CustomEvent) => {
-      e.preventDefault();
-      const input = document.getElementById('input-avatar') as HTMLInputElement;
+      const input = e.target as HTMLInputElement;
 
       if (input) {
+        const image = document.getElementById('avatar') as HTMLImageElement;
         const file = input.files[0];
-
-        const image = document.getElementById('avatar');
-
         if (file && image) {
-          const reader = new FileReader();
-
-          reader.onload = async (ev: any) => {
-            const base64 = ev.target.result;
-            (image as HTMLImageElement).src = base64;
-
-            localStorage.setItem('avatar-icon', base64);
-
-            const formData: FormData = new FormData();
-            formData.append('avatar', file);
-            await controller.changeUserAvatar(formData);
-          };
-
-          reader.readAsDataURL(file);
+          await controller.changeUserAvatar(file, image);
         }
       }
-    },
+    }
   });
 
   const content = isViewProfile
@@ -77,7 +61,7 @@ const getTemplate = (profileType?: string, isViewProfile?: boolean) => {
     avatar: avatar.transformToString(),
     header: getName(),
     isViewMode: isViewProfile,
-    content,
+    content
   };
 
   return template(context);
@@ -88,10 +72,10 @@ export default class ProfilePage extends Block {
     super('div', {
       context: {
         ...context,
-        id: uuidv4(),
+        id: uuidv4()
       },
       template: getTemplate(context.profileType, context.isViewProfile),
-      events,
+      events
     });
   }
 }

@@ -29,10 +29,10 @@ export default class Input extends Block {
         inputContainerClassName: `${classIfElse(context.isProfileInput, 'input-profile__container', 'input__container')} 
           ${isClassDefined(context.inputContainerClassName)}`,
         inputClassName: `${classIfElse(context.isProfileInput, 'input-profile__input', 'input')} ${isClassDefined(context.inputClassName)}`,
-        id: uuidv4(),
+        id: uuidv4()
       },
       template: context.isProfileInput ? inputProfileTemplate : inputTemplate,
-      events,
+      events
     });
   }
 }

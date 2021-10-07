@@ -5,9 +5,9 @@ import './error.scss';
 import Block from '../../utils/block';
 
 export type TScheme = {
-  code: string,
-  title: string,
-  linkTitle: string
+  code: string;
+  title: string;
+  linkTitle: string;
 }
 
 const getTemplate = (scheme?: TScheme) => {
@@ -16,14 +16,14 @@ const getTemplate = (scheme?: TScheme) => {
   const context = {
     code: scheme?.code,
     title: scheme?.title,
-    linkTitle: scheme?.linkTitle,
+    linkTitle: scheme?.linkTitle
   };
 
   return template(context);
 };
 
 export type TErrorPage = {
-  scheme?: TScheme,
+  scheme?: TScheme;
 }
 
 export default class ErrorPage extends Block {
@@ -31,10 +31,10 @@ export default class ErrorPage extends Block {
     super('div', {
       context: {
         ...context,
-        id: uuidv4(),
+        id: uuidv4()
       },
       template: getTemplate(context.scheme),
-      events,
+      events
     });
   }
 }

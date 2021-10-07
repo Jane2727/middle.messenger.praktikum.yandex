@@ -20,7 +20,7 @@ export default class Block {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_RENDER: 'flow:render',
-    FLOW_CDU: 'flow:component-did-update',
+    FLOW_CDU: 'flow:component-did-update'
   };
 
   private _element: HTMLElement;
@@ -39,7 +39,7 @@ export default class Block {
     this._meta = {
       tagName,
       props,
-      className,
+      className
     };
 
     this.props = this._makePropsProxy(props);
@@ -138,13 +138,15 @@ export default class Block {
       },
       deleteProperty: () => {
         throw new Error('Нет доступа');
-      },
+      }
     });
   }
 
   _createDocumentElement(tagName: string, className?: string) {
     const node = document.createElement(tagName);
-    if (className) node.classList.add(className);
+    if (className) {
+      node.classList.add(className);
+    }
     return node;
   }
 

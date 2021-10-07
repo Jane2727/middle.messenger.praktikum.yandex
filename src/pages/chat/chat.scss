@@ -9,6 +9,9 @@
 }
 
 .chat-list-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 310px;
     min-height: 300px;
     background-color: var(--bg-chat-color);
@@ -37,6 +40,8 @@
 .chat-list {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .chat-list__item {
@@ -76,9 +81,11 @@
 .current-chat__main {
     flex-grow: 1;
     padding: 10px;
+    overflow-y: auto;
 }
 
 .chat-form {
+    z-index: 1000;
     position: absolute;
     border: 1px solid gray;
     width: 400px;

@@ -4,7 +4,7 @@ import HomePage from '../pages/home/home';
 import ProfilePage from '../pages/profile/profile';
 
 import {
-  editProfilePage, errorPageSchema, routes,
+  editProfilePage, errorPageSchema, routes
 } from '../utils/constants';
 import Router from './Router';
 
@@ -16,7 +16,7 @@ const router = new Router('.root');
 const getErrorScheme = (code: string) => ({
   code,
   title: errorPageSchema[code].title,
-  linkTitle: errorPageSchema[code].linkTitle,
+  linkTitle: errorPageSchema[code].linkTitle
 });
 
 router

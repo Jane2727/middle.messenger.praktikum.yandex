@@ -8,8 +8,11 @@ import Input from '../../../../components/input/input';
 import Button from '../../../../components/button/button';
 import Form from '../../../../components/form/form';
 import LoginController from '../../../../controllers/loginController';
+import ChatController from '../../../../controllers/chatController';
+import router from '../../../../router';
 
 const controller = new LoginController();
+const chatController = new ChatController();
 
 const getTemplate = () => {
   const template = Handlebars.compile(registrationTemplate);
@@ -21,14 +24,14 @@ const getTemplate = () => {
       type: 'text',
       required: true,
       dataType: 'email',
-      errorMessage: 'Почта должна быть написана на латинице, допускаются цифры и спецсимволы',
+      errorMessage: 'Почта должна быть написана на латинице, допускаются цифры и спецсимволы'
     }, {
       focus: (event: Event) => {
         checkValidation({ event });
       },
       blur: (event: Event) => {
         checkValidation({ event });
-      },
+      }
     }),
     new Input({
       name: 'login',
@@ -36,14 +39,14 @@ const getTemplate = () => {
       type: 'text',
       required: true,
       dataType: 'login',
-      errorMessage: 'Логин должен быть от 3 до 20 символов, написан латиницей, допускаются цифры, дефис и нижнее подчёркивание.',
+      errorMessage: 'Логин должен быть от 3 до 20 символов, написан латиницей, допускаются цифры, дефис и нижнее подчёркивание.'
     }, {
       focus: (event: Event) => {
         checkValidation({ event });
       },
       blur: (event: Event) => {
         checkValidation({ event });
-      },
+      }
     }),
     new Input({
       name: 'first_name',
@@ -51,14 +54,14 @@ const getTemplate = () => {
       type: 'text',
       required: false,
       dataType: 'name',
-      errorMessage: 'Имя должно быть написано на латинице или кириллице, первая буква заглавная, без цифр и спецсимволов',
+      errorMessage: 'Имя должно быть написано на латинице или кириллице, первая буква заглавная, без цифр и спецсимволов'
     }, {
       focus: (event: Event) => {
         checkValidation({ event });
       },
       blur: (event: Event) => {
         checkValidation({ event });
-      },
+      }
     }),
     new Input({
       name: 'second_name',
@@ -66,7 +69,7 @@ const getTemplate = () => {
       type: 'text',
       required: false,
       dataType: 'name',
-      errorMessage: 'Фамилия должна быть написана на латинице или кириллице, первая буква заглавная, без цифр и спецсимволов',
+      errorMessage: 'Фамилия должна быть написана на латинице или кириллице, первая буква заглавная, без цифр и спецсимволов'
     },
     {
       focus: (event: Event) => {
@@ -74,7 +77,7 @@ const getTemplate = () => {
       },
       blur: (event: Event) => {
         checkValidation({ event });
-      },
+      }
     }),
     new Input({
       name: 'phone',
@@ -82,7 +85,7 @@ const getTemplate = () => {
       type: 'text',
       required: false,
       dataType: 'phone',
-      errorMessage: 'Телефон должен быть от 10 до 15 символов, состоять из цифр, может начинается с плюса.',
+      errorMessage: 'Телефон должен быть от 10 до 15 символов, состоять из цифр, может начинается с плюса.'
     },
     {
       focus: (event: Event) => {
@@ -90,7 +93,7 @@ const getTemplate = () => {
       },
       blur: (event: Event) => {
         checkValidation({ event });
-      },
+      }
     }),
     new Input({
       name: 'password',
@@ -98,14 +101,14 @@ const getTemplate = () => {
       type: 'password',
       required: true,
       dataType: 'password',
-      errorMessage: 'Пароль должен быть от 8 до 40 символов, обязательно хотя бы одна заглавная буква и одна цифра',
+      errorMessage: 'Пароль должен быть от 8 до 40 символов, обязательно хотя бы одна заглавная буква и одна цифра'
     }, {
       focus: (event: Event) => {
         checkValidation({ event });
       },
       blur: (event: Event) => {
         checkValidation({ event });
-      },
+      }
     }),
     new Input({
       name: 'password',
@@ -113,7 +116,7 @@ const getTemplate = () => {
       type: 'password',
       required: true,
       dataType: 'password',
-      errorMessage: 'Введенные пароли не совпадают',
+      errorMessage: 'Введенные пароли не совпадают'
     },
     {
       focus: (event: Event) => {
@@ -121,32 +124,39 @@ const getTemplate = () => {
       },
       blur: (event: Event) => {
         checkValidation({ event });
-      },
-    }),
+      }
+    })
   ];
 
   const button = new Button({
-    title: 'Зарегистрироваться',
+    title: 'Зарегистрироваться'
   });
 
   const context = {
     inputs: inputs.map((input) => input.transformToString()),
     button: button.transformToString(),
-    linkTitle: 'Войти',
+    linkTitle: 'Войти'
   };
 
   const form = new Form(
     {
       children: {
         inputs,
-        button,
+        button
       },
-      content: template(context),
+      content: template(context)
     }, {
       submit: async (event: CustomEvent) => {
-        await checkAndCollectData(event, '/messenger', controller, 'signUp');
-      },
-    },
+        const isError = await checkAndCollectData(event, controller, 'signUp');
+        if (!isError) {
+          await chatController.getAllChats();
+          router.go('/messenger');
+        } else {
+          console.warn(isError);
+        }
+        await chatController.getAllChats();
+      }
+    }
   );
 
   return form.transformToString();
@@ -157,10 +167,10 @@ export default class RegistrationPage extends Block {
     super('div', {
       context: {
         ...context,
-        id: uuidv4(),
+        id: uuidv4()
       },
       template: getTemplate(),
-      events,
+      events
     });
   }
 }

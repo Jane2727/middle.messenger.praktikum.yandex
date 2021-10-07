@@ -23,10 +23,10 @@ export default class Button extends Block {
       context: {
         ...context,
         buttonClassName: getClassName(context),
-        id: uuidv4(),
+        id: uuidv4()
       },
       template: context.isLink ? linkTemplate : buttonTemplate,
-      events,
+      events
     });
   }
 }

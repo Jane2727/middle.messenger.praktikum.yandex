@@ -15,10 +15,10 @@ export default class Avatar extends Block {
       context: {
         ...context,
         className: `${isClassDefined(context.className)}`,
-        id: uuidv4(),
+        id: uuidv4()
       },
       template: avatarTemplate,
-      events,
+      events
     });
   }
 }

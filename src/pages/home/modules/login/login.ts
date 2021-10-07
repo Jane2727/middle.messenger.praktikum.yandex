@@ -8,8 +8,11 @@ import Input from '../../../../components/input/input';
 import Button from '../../../../components/button/button';
 import Form from '../../../../components/form/form';
 import LoginController from '../../../../controllers/loginController';
+import ChatController from '../../../../controllers/chatController';
+import router from '../../../../router';
 
 const controller = new LoginController();
+const chatController = new ChatController();
 
 const getTemplate = () => {
   const template = Handlebars.compile(loginTemplate);
@@ -20,7 +23,7 @@ const getTemplate = () => {
     type: 'text',
     required: true,
     dataType: 'login',
-    errorMessage: 'Неверный логин',
+    errorMessage: 'Неверный логин'
   },
   {
     focus: (event: Event) => {
@@ -28,7 +31,7 @@ const getTemplate = () => {
     },
     blur: (event: Event) => {
       checkValidation({ event });
-    },
+    }
   });
 
   const passwordInput = new Input({
@@ -37,7 +40,7 @@ const getTemplate = () => {
     type: 'password',
     required: true,
     dataType: 'password',
-    errorMessage: 'Неверный пароль',
+    errorMessage: 'Неверный пароль'
   },
   {
     focus: (event: Event) => {
@@ -45,31 +48,37 @@ const getTemplate = () => {
     },
     blur: (event: Event) => {
       checkValidation({ event });
-    },
+    }
   });
 
   const button = new Button({
-    title: 'Авторизоваться',
+    title: 'Авторизоваться'
   });
 
   const context = {
     inputs: [loginInput.transformToString(), passwordInput.transformToString()],
     button: button.transformToString(),
-    linkTitle: 'Нет аккаунта?',
+    linkTitle: 'Нет аккаунта?'
   };
 
   const form = new Form(
     {
       children: {
         inputs: [loginInput, passwordInput],
-        button,
+        button
       },
-      content: template(context),
+      content: template(context)
     }, {
       submit: async (event: CustomEvent) => {
-        await checkAndCollectData(event, '/messenger', controller, 'login');
-      },
-    },
+        const isError = await checkAndCollectData(event, controller, 'login');
+        if (!isError) {
+          await chatController.getAllChats();
+          router.go('/messenger');
+        } else {
+          console.warn(isError);
+        }
+      }
+    }
   );
 
   return form.transformToString();
@@ -80,10 +89,10 @@ export default class LoginPage extends Block {
     super('div', {
       context: {
         ...context,
-        id: uuidv4(),
+        id: uuidv4()
       },
       template: getTemplate(),
-      events,
+      events
     });
   }
 }

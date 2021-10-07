@@ -1,6 +1,17 @@
 import ChatApi, { IAddChatUser, ICreateChat } from '../api/chatApi';
+import store from '../store';
+import { Dictionary } from '../utils/block';
 
 const chatAPIInstance = new ChatApi();
+
+export interface IChatData {
+  avatar: string;
+  created_by: number;
+  id: number;
+  last_message: Dictionary;
+  title: string;
+  unread_count: number;
+}
 
 class ChatController {
   public async getChats() {
@@ -13,7 +24,10 @@ class ChatController {
 
   public async createChat(data: ICreateChat) {
     try {
-      await chatAPIInstance.createChat(data);
+      const chatData = await chatAPIInstance.createChat(data);
+      if (chatData) {
+        store.setStateAndPersist({ currentChat: (chatData as IChatData).id });
+      }
       await this.getAllChats();
     } catch (e) {
       return e.reason;
@@ -28,7 +42,7 @@ class ChatController {
       res = e.reason;
     }
     if (res !== 'Not found') {
-      localStorage.setItem('chats', JSON.stringify(res));
+      store.setStateAndPersist({ chats: res });
     }
     return res;
   }
@@ -41,14 +55,36 @@ class ChatController {
     }
   }
 
+  public async getChatToken(id?: number) {
+    let res;
+    try {
+      res = await chatAPIInstance.getChatUsers(id);
+    } catch (e) {
+      res = e.reason;
+    }
+    if (res !== 'Not found') {
+      store.setStateAndPersist({ savedToken: res });
+    }
+    return res;
+  }
+
   public async getChatUsers(id: number) {
     try {
-      const users: unknown = await chatAPIInstance.getChatUsers(id);
-      const { token } = JSON.parse(users as string);
-
-      return token;
+      return await this.getChatToken(id);
     } catch (e) {
       return e.reason;
+    }
+  }
+
+  public async connectToChat(userId: number, chatId: number) {
+    try {
+      const tokenData = await this.getChatUsers(chatId);
+      const { token } = tokenData || {};
+      const params = { userId, chatId, token };
+
+      store.setStateAndPersist({ wsParams: params });
+    } catch (e) {
+      console.log(e);
     }
   }
 }

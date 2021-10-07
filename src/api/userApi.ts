@@ -15,8 +15,8 @@ export default class UserApi {
     return userAPIInstance.put('/profile', data);
   }
 
-  changeUserAvatar(data: FormData) {
-    return userAPIInstance.put('/profile/avatar', data);
+  changeUserAvatar(avatar: FormData) {
+    return userAPIInstance.put('/profile/avatar', avatar);
   }
 
   changeUserPassword(data: IPasswordData) {

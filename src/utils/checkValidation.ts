@@ -1,4 +1,3 @@
-import router from '../router';
 import { Dictionary } from './block';
 
 const showWarningMessage = (input: HTMLInputElement, isError: boolean) => {
@@ -19,7 +18,7 @@ const regexp = {
   checkPassword: /^[\w\d]*$/ig,
   checkPhoneNumber: /^(\+7|7|8)[0-9]{10}$/,
   checkMail: /^[\w\d.-]*@[\w\d.-]*$/,
-  checkName: /^\w+$/,
+  checkName: /^\w+$/
 };
 
 const checkLoginField = (input: HTMLInputElement): boolean => {
@@ -129,17 +128,13 @@ const checkAllInputsFields = (form: HTMLFormElement) => {
   return [...inputs].map((input) => checkValidation({ input })).every((isError) => isError === false);
 };
 
-export const checkAndCollectData = async (event: Event, nextRoute: string, controller?: any, method?: string) => {
+export const checkAndCollectData = async (event: Event, controller?: any, method?: string) => {
   const form = event.target as HTMLFormElement;
   if (form && checkAllInputsFields(form)) {
     const data = getFormModel(form);
     if (method) {
       const isError = await controller[method](data);
-      if (!isError) {
-        router.go(nextRoute);
-      } else {
-        console.warn(isError);
-      }
+      return isError;
     }
   }
 };

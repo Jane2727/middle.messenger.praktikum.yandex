@@ -3,7 +3,7 @@ import * as Handlebars from 'handlebars';
 import chatPageTemplate from './chat.tmpl';
 import newChatTemplate from './newChat.tmpl';
 import chatElemTemplate from './chatElem.tmpl';
-import avatarIcon from '../../../static/assets/avatar-icon';
+import { avatarIconBase64 } from '../../utils/constants';
 import './chat.scss';
 import Block from '../../utils/block';
 import Input from '../../components/input/input';
@@ -11,17 +11,9 @@ import ChatSelectedPage from './modules/chatSelected/chatSelected';
 import NotSelectedChatPage from './modules/notSelectedChat/notSelectedChat';
 import Button from '../../components/button/button';
 import Form from '../../components/form/form';
-import ChatController from '../../controllers/chatController';
+import ChatController, { IChatData } from '../../controllers/chatController';
 import router from '../../router';
-
-export interface IChatData {
-  avatar: string
-  created_by: number
-  id: number
-  last_message: string
-  title: string
-  unread_count: number
-}
+import store from '../../store';
 
 const chatController = new ChatController();
 
@@ -35,7 +27,9 @@ export const showModal = async (formId: string) => {
 export const closeModal = (formId: string, inputClassName: string) => {
   const input = document.querySelector(inputClassName) as HTMLInputElement;
   const form = document.getElementById(formId);
-  if (input) input.value = '';
+  if (input) {
+    input.value = '';
+  }
   form?.classList.add('hidden');
 };
 
@@ -44,6 +38,7 @@ const createNewChat = async () => {
   const title = input.value;
   await chatController.createChat({ title });
   closeModal('chat-form', '.new-chat-input');
+  router.go('/messenger');
 };
 
 const getTemplate = (isChatSelected?: boolean) => {
@@ -60,7 +55,7 @@ const getTemplate = (isChatSelected?: boolean) => {
     inputClassName: 'input__search',
     name: 'search',
     type: 'text',
-    inputContainerClassName: 'input__container-gray',
+    inputContainerClassName: 'input__container-gray'
   });
 
   const chatTitleInput = new Input({
@@ -70,50 +65,50 @@ const getTemplate = (isChatSelected?: boolean) => {
     required: true,
     dataType: 'text',
     inputClassName: 'new-chat-input',
-    inputContainerClassName: 'input__container-gray',
+    inputContainerClassName: 'input__container-gray'
   });
 
   const createChat = new Button({
     title: 'Создать чат',
-    buttonClassName: 'create-chat-button',
+    buttonClassName: 'create-chat-button'
   });
 
   const backButton = new Button({
     title: 'Отмена',
-    buttonClassName: 'back-chat-button',
+    buttonClassName: 'back-chat-button'
   }, {
     click: () => {
       closeModal('chat-form', '.new-chat-input');
-    },
+    }
   });
 
   const newChatContext = {
     input: chatTitleInput.transformToString(),
     createChat: createChat.transformToString(),
-    backButton: backButton.transformToString(),
+    backButton: backButton.transformToString()
   };
 
   const chatForm = new Form(
     {
       children: {
         inputs: [chatTitleInput],
-        button: createChat,
+        button: createChat
       },
-      content: chatTemplate(newChatContext),
+      content: chatTemplate(newChatContext)
     }, {
       submit: async () => {
         await createNewChat();
-      },
-    },
+      }
+    }
   );
 
   const newChat = new Button({
     title: 'Новый чат',
-    buttonClassName: 'new-chat-button',
+    buttonClassName: 'new-chat-button'
   }, {
     click: async () => {
       await showModal('chat-form');
-    },
+    }
   });
 
   const item = localStorage.getItem('chats');
@@ -121,18 +116,37 @@ const getTemplate = (isChatSelected?: boolean) => {
   if (item) {
     chatsData = JSON.parse(item);
     chatsData = chatsData.map((el: IChatData) => {
-      const elemContext = { ...el, avatar: el.avatar || avatarIcon };
+      const { content } = el.last_message || {};
+      const elemContext = {
+        ...el,
+        avatar: el.avatar || avatarIconBase64,
+        last_message: content
+      };
+
+      const openSelectedChat = async () => {
+        const { id } = elemContext;
+        store.setStateAndPersist({ currentChat: id });
+
+        const userData = localStorage.getItem('user');
+        let user;
+        if (userData) {
+          user = JSON.parse(userData);
+        }
+
+        if (user) {
+          await chatController.connectToChat(user.id, id);
+        }
+        router.go('/messenger-active');
+      };
 
       const elem = new Button({
         isLink: true,
         buttonClassName: 'new-chat-link',
-        content: elemTemplate(elemContext),
+        content: elemTemplate(elemContext)
       }, {
-        click: () => {
-          const { id } = elemContext;
-          localStorage.setItem('currentChat', id.toString());
-          router.go('/messenger-active');
-        },
+        click: async () => {
+          await openSelectedChat();
+        }
       });
 
       return elem.transformToString();
@@ -147,15 +161,15 @@ const getTemplate = (isChatSelected?: boolean) => {
     createChat: newChat.transformToString(),
     chatForm: chatForm.transformToString(),
     newChatTitle: 'Создание нового чата',
-    contacts: chatsData || [],
+    contacts: chatsData || []
   };
 
   return template(context);
 };
 
 export type TChatPage = {
-  isChatSelected?: boolean,
-  content?: string,
+  isChatSelected?: boolean;
+  content?: string;
 }
 
 export default class ChatPage extends Block {
@@ -163,10 +177,10 @@ export default class ChatPage extends Block {
     super('div', {
       context: {
         ...context,
-        id: uuidv4(),
+        id: uuidv4()
       },
       template: getTemplate(context.isChatSelected),
-      events,
+      events
     });
   }
 }

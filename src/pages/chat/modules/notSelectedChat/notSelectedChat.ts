@@ -8,7 +8,7 @@ const getTemplate = () => {
   const template = Handlebars.compile(notSelectedTemplate);
 
   const context = {
-    emptyChatTitle: 'Выберите чат чтобы отправить сообщение',
+    emptyChatTitle: 'Выберите чат чтобы отправить сообщение'
   };
 
   return template(context);
@@ -19,10 +19,10 @@ export default class NotSelectedChatPage extends Block {
     super('div', {
       context: {
         ...context,
-        id: uuidv4(),
+        id: uuidv4()
       },
       template: getTemplate(),
-      events,
+      events
     },
     'current-chat-container');
   }

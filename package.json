@@ -10,7 +10,7 @@
     "server": "node server.js",
     "linter": "node_modules/.bin/eslint . --ext js,jsx,ts,tsx",
     "linter:fix": "node_modules/.bin/eslint . --ext js,jsx,ts,tsx --fix",
-    "test": "./node_modules/.bin/mocha -r ts-node/register -r jsdom-global/register -r ignore-styles"
+    "test": "mocha -r ts-node/register -r jsdom-global/register --require ignore-styles src/**/*.spec.ts"
   },
   "repository": {
     "type": "git",
@@ -30,48 +30,38 @@
   ],
   "homepage": "https://github.com/Jane2727/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
-    "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.15.5",
-    "@babel/plugin-transform-runtime": "^7.15.0",
-    "@babel/preset-env": "^7.12.1",
-    "@babel/preset-typescript": "^7.12.1",
-    "@types/chai": "^4.2.14",
+    "@babel/core": "^7.15.8",
+    "@babel/plugin-transform-runtime": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@types/chai": "^4.2.21",
     "@types/jsdom": "^16.2.13",
-    "@types/jsdom-global": "^3.0.2",
-    "@types/mocha": "^5.2.7",
-    "@types/sinon": "^10.0.2",
+    "@types/mocha": "^9.0.0",
     "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
     "@typescript-eslint/parser": "^4.30.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-runtime": "^6.26.0",
+    "chai": "^4.3.4",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.25.1",
     "ignore-styles": "^5.0.1",
-    "jsdom-global": "3.0.2",
-    "mocha": "latest",
-    "mocha-jsdom": "^2.0.0",
+    "jsdom": "^17.0.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^9.1.0",
     "parcel": "1.12.3",
     "sass": "^1.35.1",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
-    "ts-node": "^10.1.0",
+    "ts-node": "^10.2.1",
     "typescript": "^4.4.2"
   },
   "engines": {
     "node": ">=12.0.0"
   },
   "dependencies": {
-    "@babel/register": "^7.15.3",
-    "chai": "^4.2.0",
     "express": "^4.17.1",
     "handlebars": "^4.7.7",
-    "jsdom": "17.0.0",
-    "sinon": "^11.1.2",
     "uuid": "^8.3.2"
   }
 }

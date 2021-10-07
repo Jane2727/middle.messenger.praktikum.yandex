@@ -9,6 +9,7 @@ enum METHODS {
 type Options = {
   method?: METHODS;
   data?: any;
+  headers?: Record<string, string>;
   contentType?: string;
 }
 
@@ -21,44 +22,49 @@ export default class HTTPTransport {
     this.url = `${HTTPTransport.DEFAULT_URL}${path}`;
   }
 
-  public get<Response>(path = '/', data?: unknown): Promise<Response> {
+  public get<Response>(path = '/', data?: unknown, headers?: Record<string, string>): Promise<Response> {
     return this.request<Response>(this.url + path, {
       method: METHODS.GET,
       data,
+      headers
     });
   }
 
-  public post<Response = void>(path: string, data?: unknown): Promise<Response> {
+  public post<Response = unknown>(path: string, data?: unknown, headers?: Record<string, string>): Promise<Response> {
     return this.request<Response>(this.url + path, {
       method: METHODS.POST,
       data,
+      headers
     });
   }
 
-  public put<Response = void>(path: string, data: unknown, contentType?: string): Promise<Response> {
+  public put<Response = void>(path: string, data: unknown, headers?: Record<string, string>, contentType?: string): Promise<Response> {
     return this.request<Response>(this.url + path, {
       method: METHODS.PUT,
       data,
-      contentType,
+      headers,
+      contentType
     });
   }
 
-  public patch<Response = void>(path: string, data: unknown): Promise<Response> {
+  public patch<Response = void>(path: string, data: unknown, headers?: Record<string, string>): Promise<Response> {
     return this.request<Response>(this.url + path, {
       method: METHODS.PATCH,
       data,
+      headers
     });
   }
 
-  public delete<Response>(path: string, data?: unknown): Promise<Response> {
+  public delete<Response>(path: string, data?: unknown, headers?: Record<string, string>): Promise<Response> {
     return this.request<Response>(this.url + path, {
       method: METHODS.DELETE,
       data,
+      headers
     });
   }
 
   private request<Response>(url: string, options: Options = { method: METHODS.GET }): Promise<Response> {
-    const { method, data, contentType } = options;
+    const { method, data = {}, headers = {} } = options;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -78,18 +84,19 @@ export default class HTTPTransport {
       xhr.onerror = () => reject({ reason: 'network error' });
       xhr.ontimeout = () => reject({ reason: 'timeout' });
 
-      if (!contentType) {
-        xhr.setRequestHeader('Content-Type', 'application/json');
-      } else {
-        xhr.setRequestHeader('Content-Type', contentType);
-      }
-
       xhr.withCredentials = true;
       xhr.responseType = 'json';
 
+      Object.entries(headers).forEach((entry) => xhr.setRequestHeader(entry[0], entry[1]));
+      xhr.setRequestHeader('Accept', 'application/json');
+
       if (method === METHODS.GET || !data) {
+        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send();
+      } else if (data instanceof FormData) {
+        xhr.send(data);
       } else {
+        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(data));
       }
     });

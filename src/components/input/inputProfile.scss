@@ -22,21 +22,6 @@
     text-align: right;
     background: transparent;
 }
-
-.edit-profile__form {
-    .input-profile__container {
-        position: relative;
-    }
-
-    .input-profile__input {
-        height: 50px;
-    }
-   
-    .input-profile__error-message {
-        position: absolute;
-        bottom: 10px;
-    }
-}
           
 .input-profile__error-message {
     color: var(--warning-color);

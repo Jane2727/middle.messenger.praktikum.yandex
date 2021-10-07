@@ -18,6 +18,8 @@
       "no-return-assign": "off",
       "global-require": "off",
       "no-multi-assign": "off",
+      "comma-dangle": ["error", "never"],
+      "import/no-extraneous-dependencies": "off",
       "import/extensions": [
         "error",
         "ignorePackages",

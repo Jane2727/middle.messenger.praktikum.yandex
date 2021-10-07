@@ -5,8 +5,8 @@ const defaultUrl = '/chats';
 const chatAPIInstance = new HTTPTransport(defaultUrl);
 
 export interface IAddChatUser {
-  users: string[],
-  chatId: number
+  users: string[];
+  chatId: number;
 }
 
 export interface ICreateChat {

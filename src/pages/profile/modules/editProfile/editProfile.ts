@@ -30,7 +30,7 @@ const getTemplate = (profileType: string) => {
         required: true,
         errorMessage: 'Неверный пароль',
         dataType: 'password',
-        isProfileInput: true,
+        isProfileInput: true
       },
       {
         focus: (event: Event) => {
@@ -38,7 +38,7 @@ const getTemplate = (profileType: string) => {
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
+        }
       }),
       new Input({
         name: 'newPassword',
@@ -47,14 +47,14 @@ const getTemplate = (profileType: string) => {
         required: true,
         errorMessage: 'Пароль должен быть от 8 до 40 символов, обязательно хотя бы одна заглавная буква и одна цифра',
         dataType: 'password',
-        isProfileInput: true,
+        isProfileInput: true
       }, {
         focus: (event: Event) => {
           checkValidation({ event });
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
+        }
       }),
       new Input({
         name: 'newSecondPassword',
@@ -63,15 +63,15 @@ const getTemplate = (profileType: string) => {
         required: true,
         errorMessage: 'Введенные пароли не совпадают',
         dataType: 'password',
-        isProfileInput: true,
+        isProfileInput: true
       }, {
         focus: (event: Event) => {
           checkValidation({ event });
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
-      }),
+        }
+      })
     ],
     profileDataInputs: [
       new Input({
@@ -83,7 +83,7 @@ const getTemplate = (profileType: string) => {
         disabled: false,
         errorMessage: 'Почта должна быть написана на латинице, допускаются цифры и спецсимволы',
         dataType: 'email',
-        isProfileInput: true,
+        isProfileInput: true
       },
       {
         focus: (event: Event) => {
@@ -91,7 +91,7 @@ const getTemplate = (profileType: string) => {
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
+        }
       }),
       new Input({
         value: user?.login || '',
@@ -102,7 +102,7 @@ const getTemplate = (profileType: string) => {
         disabled: false,
         errorMessage: 'Логин должен быть от 3 до 20 символов, написан латиницей, допускаются цифры, дефис и нижнее подчёркивание.',
         dataType: 'login',
-        isProfileInput: true,
+        isProfileInput: true
       },
       {
         focus: (event: Event) => {
@@ -110,7 +110,7 @@ const getTemplate = (profileType: string) => {
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
+        }
       }),
       new Input({
         value: user?.first_name || '',
@@ -121,7 +121,7 @@ const getTemplate = (profileType: string) => {
         disabled: false,
         errorMessage: 'Имя должно быть написано на латинице или кириллице, первая буква заглавная, без цифр и спецсимволов',
         dataType: 'name',
-        isProfileInput: true,
+        isProfileInput: true
       },
       {
         focus: (event: Event) => {
@@ -129,7 +129,7 @@ const getTemplate = (profileType: string) => {
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
+        }
       }),
       new Input({
         value: user?.second_name || '',
@@ -140,7 +140,7 @@ const getTemplate = (profileType: string) => {
         disabled: false,
         errorMessage: 'Фамилия должна быть написана на латинице или кириллице, первая буква заглавная, без цифр и спецсимволов',
         dataType: 'name',
-        isProfileInput: true,
+        isProfileInput: true
       },
       {
         focus: (event: Event) => {
@@ -148,7 +148,7 @@ const getTemplate = (profileType: string) => {
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
+        }
       }),
       new Input({
         value: user?.display_name || '',
@@ -158,7 +158,7 @@ const getTemplate = (profileType: string) => {
         disabled: false,
         errorMessage: 'Неверный формат',
         dataType: 'name',
-        isProfileInput: true,
+        isProfileInput: true
       },
       {
         focus: (event: Event) => {
@@ -166,7 +166,7 @@ const getTemplate = (profileType: string) => {
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
+        }
       }),
       new Input({
         value: user?.phone || '',
@@ -177,7 +177,7 @@ const getTemplate = (profileType: string) => {
         disabled: false,
         errorMessage: 'Телефон должен быть от 10 до 15 символов, состоять из цифр, может начинается с плюса.',
         dataType: 'phone',
-        isProfileInput: true,
+        isProfileInput: true
       },
       {
         focus: (event: Event) => {
@@ -185,21 +185,21 @@ const getTemplate = (profileType: string) => {
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
-      }),
-    ],
+        }
+      })
+    ]
   };
 
   const save = new Button({
-    title: 'Сохранить',
+    title: 'Сохранить'
   });
 
   const back = new Button({
-    title: 'Назад',
+    title: 'Назад к профилю'
   }, {
     click: async () => {
-      router.go('/messenger');
-    },
+      router.go('/settings');
+    }
   });
 
   const inputs = profileInputs[profileType];
@@ -207,29 +207,34 @@ const getTemplate = (profileType: string) => {
   const context = {
     inputs: inputs.map((input: Dictionary) => input.transformToString()),
     save: save.transformToString(),
-    back: back.transformToString(),
+    back: back.transformToString()
   };
 
   const form = new Form(
     {
       children: {
         inputs,
-        button: save,
+        button: save
       },
-      content: template(context),
+      content: template(context)
     }, {
       submit: async (event: Event) => {
         const action = profileType === 'passwordInputs' ? 'changeUserPassword' : 'changeUserProfile';
-        await checkAndCollectData(event, '/settings', controller, action);
-      },
-    },
+        const isError = await checkAndCollectData(event, controller, action);
+        if (!isError) {
+          router.go('/settings');
+        } else {
+          console.warn(isError);
+        }
+      }
+    }
   );
 
   return form.transformToString();
 };
 
 export type TEditProfilePage = {
-  profileType: string,
+  profileType: string;
 }
 
 export default class EditProfilePage extends Block {
@@ -237,10 +242,10 @@ export default class EditProfilePage extends Block {
     super('div', {
       context: {
         ...context,
-        id: uuidv4(),
+        id: uuidv4()
       },
       template: getTemplate(context.profileType),
-      events,
+      events
     });
   }
 }

@@ -1,20 +1,13 @@
 {
   "compilerOptions": {
-      "outDir": "dist",
-      "target": "es2019",
-      "declaration": false,
-      "types": ["node", "mocha"],
-      "module": "commonjs",
-      "noImplicitAny": true,
-      "removeComments": true,
-      "preserveConstEnums": true,
-      "sourceMap": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "strictNullChecks": false,
-      "moduleResolution": "node",
-      "allowSyntheticDefaultImports": true
-  },
-  "include": ["src", "custom.d.ts", "**/*.spec.ts"],
-  "files": ["custom.d.ts"]
+    "outDir": "dist",
+    "target": "es2019",
+    "declaration": false,
+    "module": "commonjs",
+    "strictNullChecks": false,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
 }
