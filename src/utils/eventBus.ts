@@ -1,4 +1,4 @@
-export class EventBus {
+export default class EventBus {
     listeners: {
         [event: string]: any[];
     };
@@ -19,7 +19,7 @@ export class EventBus {
         throw new Error(`Нет события: ${event}`);
       }
       this.listeners[event] = this.listeners[event].filter(
-        (listener) => listener !== callback,
+        (listener) => listener !== callback
       );
     }
 

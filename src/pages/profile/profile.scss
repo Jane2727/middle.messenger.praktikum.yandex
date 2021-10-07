@@ -24,14 +24,25 @@
 .profile-page__image__icon {
     width: 130px;
     height: 130px;
-
-    &:hover {
-        cursor: pointer;
-    }
 }
 
 .profile-page__user-name {
     text-align: center;
     font-size: 16px;
     line-height: 16px;
+}
+
+.edit-profile__form {
+    .input-profile__container {
+        position: relative;
+    }
+
+    .input-profile__input {
+        height: 50px;
+    }
+   
+    .input-profile__error-message {
+        position: absolute;
+        bottom: 10px;
+    }
 }

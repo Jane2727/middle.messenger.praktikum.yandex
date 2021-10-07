@@ -7,7 +7,7 @@ export default
         </div>
         <div class="login__buttons-panel">
                 {{{button}}}
-            <a class="login__registration-link" href="/registration">
+            <a class="login__registration-link" href="/sign-up">
                 <span class="login__registration-link-title">{{linkTitle}}</span>
             </a>
         </div>

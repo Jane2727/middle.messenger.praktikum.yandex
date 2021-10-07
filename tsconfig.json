@@ -1,19 +1,13 @@
 {
   "compilerOptions": {
-      "outDir": "dist",
-      "target": "es2016",
-      "declaration": false,
-      "module": "ES6",
-      "noImplicitAny": true,
-      "removeComments": true,
-      "preserveConstEnums": true,
-      "sourceMap": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "strictNullChecks": true,
-      "moduleResolution": "node",
-      "allowSyntheticDefaultImports": true
-  },
-  "include": ["src", "custom.d.ts"],
-  "files": ["custom.d.ts"]
+    "outDir": "dist",
+    "target": "es2019",
+    "declaration": false,
+    "module": "commonjs",
+    "strictNullChecks": false,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
 }

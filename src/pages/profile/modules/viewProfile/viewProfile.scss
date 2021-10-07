@@ -29,6 +29,12 @@
     color: var(--blue-color);
 }
 
-.profile__back-link span {
-    color: var(--warning-color);
+.profile__back-link ,
+.profile__sign-out-link {
+    margin: 5px 0;
+    text-align: center;
+}
+
+.profile__back-link {
+    margin-top: 30px;
 }

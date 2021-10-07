@@ -1,6 +1,6 @@
 .current-chat-area__selected {
     display: flex;
-    width: calc( 100% - 310px);
+    width: 100%;
     flex-direction: column;
     justify-content: space-between;
 }
@@ -41,6 +41,14 @@
     }
 }
 
+.chat-settings__icon {
+    background-image: url('/static/assets/chat-settings.svg');
+    width: 23px;
+    height: 39px;
+    background-position: 20px 10px;
+    background-repeat: no-repeat;
+}
+
 .current-chat__footer {
     display: flex;
     height: 54px;
@@ -58,10 +66,93 @@
     }
 }
 
+.add-file-button__icon {
+    margin-bottom: 8px;
+    margin-left: 10px;
+    background-image: url('/static/assets/add-file.svg');
+    width: 32px;
+    height: 32px;
+    background-size: 32px;
+    background-repeat: no-repeat;
+}
+
 .send-button {
-    padding: 10px;
+    margin-bottom: 8px;
+    margin-left: 10px;
+    background-image: url('/static/assets/arrow-send.svg');
+    width: 32px;
+    height: 32px;
+    background-size: 32px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+
+    > div {
+        width: 100%;
+        height: 100%;
+    }
 
     &:hover {
         cursor: pointer;
     }
+}
+
+.send-button__icon {
+    width: 32px;
+    height: 32px;
+}
+
+.user-form {
+    z-index: 1000;
+    position: absolute;
+    border: 1px solid gray;
+    width: 400px;
+    height: 230px;
+    top: calc(50% - 115px);
+    left: calc(50% - 200px);
+    border-radius: 8px;
+    background: var(--bg-form-chat-color);
+}
+
+.new-user-button {
+    text-align: center;
+    margin: 10px 14px;
+}
+
+.user-form-title {
+    font-size: 14px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.create-user-button,
+.back-chat-button {
+    margin: 10px calc(50% - 140px);
+}
+
+.new-chat-input,
+.new-user-input {
+    height: 30px;
+    width: 80%;
+    margin: 0 calc(40% - 120px);
+}
+
+.users-list {
+    border-bottom: 1px solid blue;
+    width: 90%;
+    min-height: 30px;
+    margin: 10px 0;
+    padding: 5px;
+}
+
+.user-item {
+    font-style: italic;
+}
+
+.message {
+    border: 1px solid gray;
+    border-radius: 8px;
+    padding: 5px;
+    min-height: 30px;
+    width: 90%;
+    margin: 5px 0;
 }

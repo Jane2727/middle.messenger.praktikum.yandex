@@ -3,5 +3,5 @@ export const isClassDefined = (className: string | undefined) => ((className && 
 export const classIfElse = (
   isFirstClass: boolean | undefined,
   firstClassName: string,
-  secondClassName: string,
+  secondClassName: string
 ) => (isFirstClass ? firstClassName : secondClassName);

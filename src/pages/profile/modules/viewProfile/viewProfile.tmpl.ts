@@ -6,14 +6,17 @@ export default
         {{/each}}
         </div>
         <div class="profile__buttons-panel">
-            <a class="profile__change-data-link" href="/editProfileData">
+            <a class="profile__change-data-link" href="/settings-edit-data">
                 <span>{{changeData}}</span>
             </a> 
-            <a class="profile__change-password-link" href="/editProfilePassword">
+            <a class="profile__change-password-link" href="/settings-edit-password">
                 <span>{{changePassword}}</span>
             </a> 
-            <a class="profile__back-link" href="/login">
-                <span>{{back}}</span>
-            </a> 
+            <div class="profile__back-link">
+                {{{back}}}
+            </div> 
+            <div class="profile__sign-out-link">
+                {{{signOut}}}
+            </div> 
         </div>
     </div>`;

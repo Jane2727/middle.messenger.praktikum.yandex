@@ -7,8 +7,5 @@ export default
         </div>
         <div class="registration__buttons-panel">
                 {{{button}}}
-            <a class="registration__login-link" href="/notSelectedChat">
-                <span class="registration__login-link-title">{{linkTitle}}</span>
-            </a>
         </div>
     </div>`;

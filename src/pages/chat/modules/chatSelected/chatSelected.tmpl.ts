@@ -6,19 +6,34 @@ export default
             </div>
             <div class="current-chat-name">{{chatTitle}}</div>
             <div class="chat-settings">
-                <img src="{{chatSettingsIcon}}" class="chat-settings__icon">
+                <div class="chat-settings__icon"></div>
             </div>
         </div>
-        <div class="current-chat__main"></div>
+        <div class="current-chat__main">
+            {{{createUser}}}
+            <div class="users-list">
+            {{#each users}}
+                <div class="user-item">
+                    {{{this}}}
+                </div>
+            {{/each}}
+            </div>
+            <div class="messages__container">
+            </div>
+        <div class="user-form hidden" id="user-form">
+            <div class="user-form-title">{{newUserTitle}}</div>
+            {{{userForm}}}
+        </div>
+        </div>
         <div class="current-chat__footer">
             <div class="add-file-button">
-                <img src="{{addFileIcon}}" class="add-file-button__icon">
+                <div class="add-file-button__icon"></div>
             </div>
             <div class="message-input">
                 {{{message}}}
             </div>
             <div class="send-button">
-                <img src="{{sendIcon}}" class="send-button__icon">
+                {{{sendButton}}}
             </div>
         </div>
     </div>`;

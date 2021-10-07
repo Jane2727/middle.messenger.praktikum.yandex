@@ -1,25 +1,36 @@
 import * as Handlebars from 'handlebars';
+import { v4 as uuidv4 } from 'uuid';
 import editProfileTemplate from './editProfile.tmpl';
-import { Input } from '../../../../components/input';
-import { Button } from '../../../../components/button';
 import './editProfile.scss';
-import { Form } from '../../../../components/form';
 import { checkAndCollectData, checkValidation } from '../../../../utils';
-import { Dictionary } from '../../../../utils/block';
+import Block, { Dictionary } from '../../../../utils/block';
+import Input from '../../../../components/input/input';
+import Button from '../../../../components/button/button';
+import Form from '../../../../components/form/form';
+import UserController from '../../../../controllers/userController';
+import router from '../../../../router';
 
-export function editProfile(profileType: string) {
+const controller = new UserController();
+
+const getTemplate = (profileType: string) => {
   const template = Handlebars.compile(editProfileTemplate);
+
+  const item = localStorage.getItem('user');
+  let user;
+  if (item) {
+    user = JSON.parse(item);
+  }
 
   const profileInputs: Dictionary = {
     passwordInputs: [
       new Input({
-        name: 'password',
+        name: 'oldPassword',
         label: 'Старый пароль',
         type: 'password',
         required: true,
         errorMessage: 'Неверный пароль',
         dataType: 'password',
-        isProfileInput: true,
+        isProfileInput: true
       },
       {
         focus: (event: Event) => {
@@ -27,44 +38,44 @@ export function editProfile(profileType: string) {
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
+        }
       }),
       new Input({
-        name: 'secondPassword',
+        name: 'newPassword',
         label: 'Новый пароль',
         type: 'password',
         required: true,
         errorMessage: 'Пароль должен быть от 8 до 40 символов, обязательно хотя бы одна заглавная буква и одна цифра',
         dataType: 'password',
-        isProfileInput: true,
+        isProfileInput: true
       }, {
         focus: (event: Event) => {
           checkValidation({ event });
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
+        }
       }),
       new Input({
-        name: 'secondPassword',
+        name: 'newSecondPassword',
         label: 'Повторите новый пароль',
         type: 'password',
         required: true,
         errorMessage: 'Введенные пароли не совпадают',
         dataType: 'password',
-        isProfileInput: true,
+        isProfileInput: true
       }, {
         focus: (event: Event) => {
           checkValidation({ event });
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
-      }),
+        }
+      })
     ],
     profileDataInputs: [
       new Input({
-        value: 'pochta@yandex.ru',
+        value: user?.email || '',
         name: 'email',
         label: 'Почта',
         type: 'text',
@@ -72,7 +83,7 @@ export function editProfile(profileType: string) {
         disabled: false,
         errorMessage: 'Почта должна быть написана на латинице, допускаются цифры и спецсимволы',
         dataType: 'email',
-        isProfileInput: true,
+        isProfileInput: true
       },
       {
         focus: (event: Event) => {
@@ -80,10 +91,10 @@ export function editProfile(profileType: string) {
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
+        }
       }),
       new Input({
-        value: 'john',
+        value: user?.login || '',
         name: 'login',
         label: 'Логин',
         type: 'text',
@@ -91,7 +102,7 @@ export function editProfile(profileType: string) {
         disabled: false,
         errorMessage: 'Логин должен быть от 3 до 20 символов, написан латиницей, допускаются цифры, дефис и нижнее подчёркивание.',
         dataType: 'login',
-        isProfileInput: true,
+        isProfileInput: true
       },
       {
         focus: (event: Event) => {
@@ -99,18 +110,18 @@ export function editProfile(profileType: string) {
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
+        }
       }),
       new Input({
-        value: 'john',
-        name: 'name',
+        value: user?.first_name || '',
+        name: 'first_name',
         label: 'Имя',
         type: 'text',
         required: false,
         disabled: false,
         errorMessage: 'Имя должно быть написано на латинице или кириллице, первая буква заглавная, без цифр и спецсимволов',
         dataType: 'name',
-        isProfileInput: true,
+        isProfileInput: true
       },
       {
         focus: (event: Event) => {
@@ -118,18 +129,18 @@ export function editProfile(profileType: string) {
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
+        }
       }),
       new Input({
-        value: 'john',
-        name: 'lastName',
+        value: user?.second_name || '',
+        name: 'second_name',
         label: 'Фамилия',
         type: 'text',
         required: false,
         disabled: false,
         errorMessage: 'Фамилия должна быть написана на латинице или кириллице, первая буква заглавная, без цифр и спецсимволов',
         dataType: 'name',
-        isProfileInput: true,
+        isProfileInput: true
       },
       {
         focus: (event: Event) => {
@@ -137,17 +148,17 @@ export function editProfile(profileType: string) {
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
+        }
       }),
       new Input({
-        value: 'john',
-        name: 'nickname',
+        value: user?.display_name || '',
+        name: 'display_name',
         label: 'Имя в чате',
         type: 'text',
         disabled: false,
         errorMessage: 'Неверный формат',
         dataType: 'name',
-        isProfileInput: true,
+        isProfileInput: true
       },
       {
         focus: (event: Event) => {
@@ -155,10 +166,10 @@ export function editProfile(profileType: string) {
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
+        }
       }),
       new Input({
-        value: '+76667776655',
+        value: user?.phone || '',
         name: 'phone',
         label: 'Телефон',
         type: 'text',
@@ -166,7 +177,7 @@ export function editProfile(profileType: string) {
         disabled: false,
         errorMessage: 'Телефон должен быть от 10 до 15 символов, состоять из цифр, может начинается с плюса.',
         dataType: 'phone',
-        isProfileInput: true,
+        isProfileInput: true
       },
       {
         focus: (event: Event) => {
@@ -174,17 +185,21 @@ export function editProfile(profileType: string) {
         },
         blur: (event: Event) => {
           checkValidation({ event });
-        },
-      }),
-    ],
+        }
+      })
+    ]
   };
 
   const save = new Button({
-    title: 'Сохранить',
+    title: 'Сохранить'
   });
 
   const back = new Button({
-    title: 'Назад',
+    title: 'Назад к профилю'
+  }, {
+    click: async () => {
+      router.go('/settings');
+    }
   });
 
   const inputs = profileInputs[profileType];
@@ -192,22 +207,45 @@ export function editProfile(profileType: string) {
   const context = {
     inputs: inputs.map((input: Dictionary) => input.transformToString()),
     save: save.transformToString(),
-    back: back.transformToString(),
+    back: back.transformToString()
   };
 
   const form = new Form(
     {
       children: {
         inputs,
-        button: save,
+        button: save
       },
-      content: template(context),
+      content: template(context)
     }, {
-      submit: (event: Event) => {
-        checkAndCollectData(event, '/viewProfile');
-      },
-    },
+      submit: async (event: Event) => {
+        const action = profileType === 'passwordInputs' ? 'changeUserPassword' : 'changeUserProfile';
+        const isError = await checkAndCollectData(event, controller, action);
+        if (!isError) {
+          router.go('/settings');
+        } else {
+          console.warn(isError);
+        }
+      }
+    }
   );
 
   return form.transformToString();
+};
+
+export type TEditProfilePage = {
+  profileType: string;
+}
+
+export default class EditProfilePage extends Block {
+  constructor(context: TEditProfilePage, events = {}) {
+    super('div', {
+      context: {
+        ...context,
+        id: uuidv4()
+      },
+      template: getTemplate(context.profileType),
+      events
+    });
+  }
 }

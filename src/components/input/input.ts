@@ -4,7 +4,7 @@ import inputTemplate from './input.tmpl';
 import { isClassDefined, classIfElse } from '../../utils';
 import './input.scss';
 import './inputProfile.scss';
-import { Block } from '../../utils/block';
+import Block from '../../utils/block';
 
 export type TInput = {
   isProfileInput?: boolean;
@@ -20,7 +20,7 @@ export type TInput = {
   dataType?: string;
 }
 
-export class Input extends Block {
+export default class Input extends Block {
   constructor(context: TInput, events = {}) {
     super('div', {
       context: {
@@ -29,10 +29,10 @@ export class Input extends Block {
         inputContainerClassName: `${classIfElse(context.isProfileInput, 'input-profile__container', 'input__container')} 
           ${isClassDefined(context.inputContainerClassName)}`,
         inputClassName: `${classIfElse(context.isProfileInput, 'input-profile__input', 'input')} ${isClassDefined(context.inputClassName)}`,
-        id: uuidv4(),
+        id: uuidv4()
       },
       template: context.isProfileInput ? inputProfileTemplate : inputTemplate,
-      events,
+      events
     });
   }
 }

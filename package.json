@@ -9,31 +9,51 @@
     "start": "parcel index.html --port 3000 --open",
     "server": "node server.js",
     "linter": "node_modules/.bin/eslint . --ext js,jsx,ts,tsx",
-    "linter:fix": "node_modules/.bin/eslint . --ext js,jsx,ts,tsx --fix"
+    "linter:fix": "node_modules/.bin/eslint . --ext js,jsx,ts,tsx --fix",
+    "test": "mocha -r ts-node/register -r jsdom-global/register --require ignore-styles src/**/*.spec.ts"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jane2727/middle.messenger.praktikum.yandex.git"
+  },
+  "directories": {
+    "src": "./src",
+    "test": "./test"
   },
   "author": "Evgeniya Zhavoronkova",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Jane2727/middle.messenger.praktikum.yandex/issues"
   },
+  "browserslist": [
+    "last 1 Chrome version"
+  ],
   "homepage": "https://github.com/Jane2727/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/plugin-transform-runtime": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@types/chai": "^4.2.21",
+    "@types/jsdom": "^16.2.13",
+    "@types/mocha": "^9.0.0",
     "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
     "@typescript-eslint/parser": "^4.30.0",
+    "chai": "^4.3.4",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.25.1",
+    "ignore-styles": "^5.0.1",
+    "jsdom": "^17.0.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^9.1.0",
     "parcel": "1.12.3",
     "sass": "^1.35.1",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
+    "ts-node": "^10.2.1",
     "typescript": "^4.4.2"
   },
   "engines": {
